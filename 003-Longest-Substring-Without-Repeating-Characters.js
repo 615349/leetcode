@@ -14,32 +14,28 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function (s) {
 
-    var max = 0;
-    var i = 0;
-    var j = 0;
-    var n = s.length;
-    var map = {};
-
-    while (i < n && j < n) {
-        if (map[s[j]] === undefined) {
-            map[s[j]] = 1;
-            j++;
-            max = Math.max(max, j - i);
-        } else {
-            delete map[s[i]];
-            i++;
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        int i = 0, j = 0;
+        int maxLen = 0;
+        boolean[] exists = new boolean[256];
+        while(j < n){
+            if(exists[s.charAt(j)]){
+                // met the repeat character, update the maxlen;
+                maxLen = Math.max(maxLen, j - i);
+                // update pointer i
+                while(s.charAt(i) != s.charAt(j)){
+                    exists[s.charAt(i)] = false;
+                    i++;
+                }
+                i++;
+                j++;
+            } else {
+                exists[s.charAt(j)] = true;
+                j++;
+            }
         }
-
+        maxLen = Math.max(maxLen, n - i);
+        return maxLen; 
     }
-
-    return max;
-};
-
-console.log(lengthOfLongestSubstring('c'), 1);
-console.log(lengthOfLongestSubstring(''), 0);
-console.log(lengthOfLongestSubstring('abcabcbb'), 3);
-console.log(lengthOfLongestSubstring('bbbbb'), 1);
-console.log(lengthOfLongestSubstring('pwwkew'), 3);
-console.log(lengthOfLongestSubstring('xhhyccrcbdczkvzeeubynglxfdedshtpobqsdhufkzgwuhaabdzrlkosnuxibrxssnkxuhcggkecshdvkcmymdqbxolbfjtzyfw'), 14);
