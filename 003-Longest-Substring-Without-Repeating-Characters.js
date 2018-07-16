@@ -41,3 +41,26 @@ public:
         return maxlen;
     }
 };
+
+
+
+const getLongestLength = (s) => {
+  let i = 0, j = 0, maxLen = 0;
+  let map = {};
+  while (j < s.length) {
+    if (map[s[j]] === undefined) {
+      map[s[j]] = 1;
+      maxLen = Math.max(j - i + 1, maxLen);
+      j++;
+    } else {
+      // j和i到j之间的k重合，那么删除i，并且往前移动，一直移动到k，删除k，然后i再往前一步
+      delete map[s[i]];
+      i++;
+    }
+  }
+  return maxLen;
+};
+
+const m = getLongestLength("abcda");
+console.log('m:', m)
+
