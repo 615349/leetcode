@@ -10,6 +10,10 @@
  * Explanation: 342 + 465 = 807.
  */
 
+
+pretty straight forward. just do not forget to check if the carry is existed after the loop is over
+
+
 // Definition for singly-linked list.
 function ListNode(val) {
     this.val = val;
