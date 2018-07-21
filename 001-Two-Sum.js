@@ -16,7 +16,15 @@
  * @return {number[]}
  */
 
-var twoSum2 = function (numbers, target) {
+the algorithm is to create an object, or map, and then loop over the array
+if the number of the array as the key is not existed in the map, make the number as key, and the index of the array as value
+for example:
+map = {
+   2: 0
+}
+for the next iteration, check if target - the new iterated number is existed as key. if so, we've found the two numbers
+
+var twoSum = function (numbers, target) {
     var map = {};
     for (var i = 0; i < numbers.length; i++) {
         var n = numbers[i];
@@ -27,8 +35,4 @@ var twoSum2 = function (numbers, target) {
         }
     }
 };
-
-console.log(twoSum2([2, 7, 11, 15], 9));
-console.log(twoSum2([2, 7, 11, 15], 26));
-console.log(twoSum2([2, 7, 11, 15], 26));
 
