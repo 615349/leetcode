@@ -23,6 +23,10 @@
  * @return {number}
  */
 
+首先弄一个flag，如果是负数，最后要乘以-1
+如果是负数，要先化成正数来做
+接下来的就简单来
+
 const reverse = (x) => {  
   //the requirement assumes return 0 when integer overflows
   const MAX = ~(1 << 31);
