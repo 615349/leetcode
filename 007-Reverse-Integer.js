@@ -22,28 +22,27 @@
  * @param {number} x
  * @return {number}
  */
-var reverse = function (x) {
 
-    var sign = x >= 0 ? -1 : 1;
-    x = Math.abs(x);
-
-    var sum = 0;
-    while (x) {
-        sum = sum * 10 + x % 10;
-        x = Math.floor(x / 10);
-    }
-    var ret = sign * -1 * sum;
-    var max = Math.pow(2, 31) - 1;
-    var min = -Math.pow(2, 31);
-    if (ret > max) return 0;
-    if (ret < min) return 0;
-    return ret;
-};
-
-console.log(reverse(123) === 321);
-console.log(reverse(-123) === -321);
-console.log(reverse(120) === 21);
-console.log(reverse(1534236469) === 0);
-console.log(reverse(-2147483412), reverse(-2147483412) === -2143847412);
-console.log(reverse(-2147483648), reverse(-2147483648) === 0);
-
+const reverse = (x) => {  
+  //the requirement assumes return 0 when integer overflows
+  const MAX = ~(1 << 31);
+  const MIN = 1 << 31;
+    
+  if (x > MAX || x < MIN) return 0;
+    
+  let flag = 1;
+  if (x < 0) {
+      flag = -1;
+      x = -x;
+  }
+    
+  let result = 0;
+  while (x) {
+      result = result * 10 + x % 10;
+      x = Math.floor(x/10);
+  }
+    
+  result = flag * result;  
+    
+  return result;
+}
