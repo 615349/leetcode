@@ -9,6 +9,11 @@
  * @param {number} x
  * @return {boolean}
  */
+
+思路：
+首先发端是否是负数，是，直接返回
+接着反一下这个数，判断是否相等于原数
+
 var isPalindrome = function (x) {
     if (x < 0) return false;
     var t = x;
@@ -18,14 +23,5 @@ var isPalindrome = function (x) {
         p = p * 10 + x % 10;
         x = Math.floor(x / 10);
     }
-    // console.log(x, p);
     return t === p;
 };
-
-console.log(isPalindrome(-1) === false);
-console.log(isPalindrome(0) === true);
-console.log(isPalindrome(123) === false);
-console.log(isPalindrome(12321) === true);
-console.log(isPalindrome(1221) === true);
-console.log(isPalindrome(2222) === true);
-
