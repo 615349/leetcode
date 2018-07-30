@@ -23,6 +23,13 @@
  * @param {string} s
  * @return {number}
  */
+
+其实抓住规律就可以了
+两个字母在一起，如果左边的小于右边，则这个数字是右边的减去左边
+如果左边大于的右边的，则是左边的加上右边的
+
+所以从右边开始计算
+
 var romanToInt = function (s) {
 
     if (!s) return 0;
@@ -44,7 +51,3 @@ var romanToInt = function (s) {
     }
     return sum;
 };
-
-console.log(romanToInt('III'), 3);
-console.log(romanToInt('VI'), 6);
-console.log(romanToInt('IV'), 4);
