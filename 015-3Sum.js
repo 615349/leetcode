@@ -18,6 +18,55 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+
+三个数之和为0
+首先要做的时候排序，因为这样如果有重复的数字，他们就会在一起
+其次是选定一个数字（index为i），然后在剩余的i+1一直到len-1之间找到两个数字，加起来为0
+贴一段java代码，懒得写js了
+
+public class Solution {
+    List<List<Integer>> ret = new ArrayList<List<Integer>>();
+    
+    public List<List<Integer>> threeSum(int[] num) {
+        if (num == null || num.length < 3) return ret;
+        
+        Arrays.sort(num);
+        
+        int len = num.length;
+        for (int i = 0; i < len-2; i++) {
+            if (i > 0 && num[i] == num[i-1]) continue;
+            find(num, i+1, len-1, num[i]); //寻找两个数与num[i]的和为0
+        }
+        
+        return ret;
+    }
+    
+    public void find(int[] num, int begin, int end, int target) {
+        int l = begin, r = end;
+        while (l < r) {
+            if (num[l] + num[r] + target == 0) {
+                List<Integer> ans = new ArrayList<Integer>();
+                ans.add(target);
+                ans.add(num[l]);
+                ans.add(num[r]);
+                ret.add(ans); //放入结果集中
+                while (l < r && num[l] == num[l+1]) l++;
+                while (l < r && num[r] == num[r-1]) r--;
+                l++;
+                r--;
+            } else if (num[l] + num[r] + target < 0) {
+                l++;
+            } else {
+                r--;
+            }
+        }
+    }
+}
+
+
+
+
+
 var threeSum = function (nums) {
 
     nums.sort(function (a, b) {
@@ -57,8 +106,3 @@ var threeSum = function (nums) {
     return ret;
 
 };
-
-console.log(threeSum([-2, 0, 0, 2, 2]));
-console.log(threeSum([-1, 0, 1, 2, -1, -4]));
-// console.log(threeSum([0, 0, 0, 0]));
-// console.log(threeSum([1, -1, -1, 0]));
