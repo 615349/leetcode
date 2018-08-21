@@ -14,29 +14,39 @@
  * @param {number} target
  * @return {number}
  */
-var threeSumClosest = function (nums, target) {
 
-    var ans = nums[0] + nums[1] + nums[2];
-    var len = nums.length;
+只需要返回最接近的和就可以
+首先对数组进行排序，然后选定一个数，另外进行从这个的右边第一个开始（标记为left），到数组最后一个结束（标记为right），进行比较
+如果小于target，则left向右边移动，如果大于，则right向左边移动，如果刚好相等，直接返回结果
 
-    nums.sort((a, b) => a < b ? -1 : (a > b) ? 1 : 0);
+用一个变量保存最小的差，返回
 
-    for (var i = 0; i < len - 2; i++) {
-        var j = i + 1;
-        var k = len - 1;
-
-        while (j < k) {
-            var sum = nums[i] + nums[j] + nums[k];
-            if (sum === target) return sum;
-            if (sum > target) k--;
-            if (sum < target) j++;
-            if (Math.abs(target - sum) < Math.abs(target - ans)) {
-                ans = sum;
+public class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int closetSum = 0, minDiff = Integer.MAX_VALUE / 2;
+        for(int i = 0; i < nums.length; i++){
+            int left = i + 1, right = nums.length - 1;
+            while(left < right){
+                // 当前组合的和
+                int sum = nums[i] + nums[left] + nums[right];
+                // 当前组合的和与目标的差值
+                int diff = Math.abs(sum - target);
+                // 如果差值更小则更新最接近的和
+                if(diff < minDiff){
+                    closetSum = sum;
+                    minDiff = diff;
+                }
+                // 双指针的移动方法和3Sum一样
+                if (sum < target){
+                    left++;
+                } else if (sum > target){
+                    right--;
+                } else {
+                    return sum;
+                }
             }
         }
+        return closetSum;
     }
-    return ans;
-
-};
-
-console.log(threeSumClosest([-1, 2, 1, -4], 1));
+}
