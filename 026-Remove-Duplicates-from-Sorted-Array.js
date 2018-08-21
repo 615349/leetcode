@@ -15,36 +15,30 @@
  * @param {number[]} nums
  * @return {number}
  */
-var removeDuplicates = function (nums) {
-    var n = nums.length;
-    if (!n)  return 0;
-    var last = nums[0];
-    var cnt = 1;
-
-    for (var i = 1; i < nums.length; i++) {
-        if (nums[i] !== last) {
-            last = nums[i];
-            cnt++;
-        }
-        else {
-            nums.splice(i, 1);
-            i--;
+要求是不能创建一个新的数组，否则就太简单了
+var removeDuplicates = function(nums) {
+    let result = []
+    
+    for(let i = 0; i < nums.length; i++) {
+        if(result.includes(nums[i])) {
+            continue;
+        } else {
+            result.push(nums[i])
         }
     }
-    return cnt;
-
+    
+    return result.length;
 };
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var removeDuplicates = function (nums) {
-    for (var i = 0; i < nums.length - 1; i++)
-        if (nums[i] === nums[i + 1]) nums.splice(i--, 1);
-    return nums.length;
-};
+可以直接修改数组，那么直接跟相邻的比较。唯一的tricky是考虑[1, 1, 1]，所以需要做一个i--
 
-var arr = [1, 2, 2];
-console.log(removeDuplicates(arr));
-console.log(arr);
+var removeDuplicates = function(nums) {
+  for (let i = 0; i < nums.length - 1; i++) {
+    if (nums[i] === nums[i + 1]) {
+      nums.splice(i, 1);
+      i--;
+    }
+  }
+
+  return nums.length;
+};
