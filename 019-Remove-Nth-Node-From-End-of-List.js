@@ -14,48 +14,43 @@
  *
  */
 
-
-// Definition for singly-linked list.
-function ListNode(val) {
+首先定义
+function ListNode(val = 0) {
     this.val = val;
     this.next = null;
 }
 
-/**
- * @param {ListNode} head
- * @param {number} n
- * @return {ListNode}
- */
-var removeNthFromEnd = function (head, n) {
-    if (!head) return head;
-    var len = 0;
-    var tail = head;
-    while (tail) {
-        tail = tail.next;
-        len++;
-    }
-    if (len === n) {
-        return head.next;
-    }
+可以通过new的方式得到节点
+const node = new ListNode();
 
-    len = len - n - 1;
-    tail = head;
-    while (len) {
-        tail = tail.next;
-        len--;
-    }
-    tail.next = tail.next.next;
-    return head;
-};
+可以跟面试官讨论n是否比list node的长度长。看了其他答案，基本假定n比长度短
 
-var a = new ListNode(1);
-var b = new ListNode(2);
-var c = new ListNode(3);
-var d = new ListNode(4);
-// var e = new ListNode(5);
-a.next = b;
-b.next = c;
-c.next = d;
-// d.next = e;
+思想是很简单的，两个指针，一个先向前走n步，然后第一个和第二个一起走。第一个走到最后一个点的时候，第二个所在的就是要删除的点
+注意删除只需要
+slow.next = slow.next.next
 
-console.log(removeNthFromEnd(a, 2));
+
+public static ListNode removeNthFromEnd(ListNode head, int n) {
+        if(head == null || head.next == null)
+            return null;
+            
+        ListNode faster = head;
+        ListNode slower = head;
+        
+        for(int i = 0; i<n; i++)
+            faster = faster.next;
+            
+        if(faster == null){
+            head = head.next;
+            return head;
+        }
+        
+        while(faster.next != null){
+            slower = slower.next;
+            faster = faster.next;
+        }
+        
+        slower.next = slower.next.next;
+        return head;
+        
+}
