@@ -13,9 +13,11 @@
  * @param {string} str
  * @returns {string}
  */
+
+使用array.reverse()
+
 var reverseWords = function (str) {
     return str.split(' ')
-        .filter(w => w)
         .reverse()
         .join(' ');
 };
