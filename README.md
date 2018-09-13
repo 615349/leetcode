@@ -11,9 +11,9 @@ const left = new ListNode(0);
 
 //for testing
 const left = {
-  val: 0,
+  value: 0,
   next: {
-    val: 1,
+    value: 1,
     next: null
   }
 }
