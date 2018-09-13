@@ -1,5 +1,21 @@
-# LeetCode in Javascript
+1, for ListNode
 
-一起来刷 [LeetCode](https://leetcode.com/) :D
+```js
+function ListNode(value = 0) {
+  this.value = value;
+  this.next = null;
+}
 
-如果你有感兴趣的题目或者需要更加详细的解释, 可以创建 [issue](https://github.com/xiaoyu2er/leetcode-js/issues)
+//initialization
+const left = new ListNode(0);
+
+//for testing
+const left = {
+  val: 0,
+  next: {
+    val: 1,
+    next: null
+  }
+}
+```
+
