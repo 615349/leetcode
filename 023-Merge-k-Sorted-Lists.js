@@ -5,6 +5,8 @@
  * Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
  */
 
+这是我见过最好的答案，使用reduce来遍历
+
 
 //Definition for singly-linked list.
 function ListNode(val) {
