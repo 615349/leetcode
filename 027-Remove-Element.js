@@ -15,6 +15,9 @@
  * @param {number} val
  * @return {number}
  */
+
+跟26题一样
+
 var removeElement = function (nums, val) {
 
     var len = nums.length;
@@ -28,4 +31,4 @@ var removeElement = function (nums, val) {
     return len;
 };
 
-console.log(removeElement([3, 2, 2, 3], 3));
+
