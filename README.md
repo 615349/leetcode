@@ -1,9 +1,18 @@
 1, for ListNode
 
 ```js
-function ListNode(value = 0) {
+function ListNode(value) {
   this.value = value;
   this.next = null;
+}
+
+or
+
+class ListNode {
+  constructor(val) {
+    this.val = val;
+    this.next = null;
+  }
 }
 
 //initialization
