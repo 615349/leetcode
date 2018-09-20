@@ -9,8 +9,8 @@ function ListNode(value) {
 or
 
 class ListNode {
-  constructor(val) {
-    this.val = val;
+  constructor(value) {
+    this.value = value;
     this.next = null;
   }
 }
