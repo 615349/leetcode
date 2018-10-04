@@ -18,8 +18,8 @@ node -> 1 -> 2 -> 3 -> 4 -> 5
 
 因此创建一个节点prev，并建立一个函数，以prev为入参
 function swap(prev) {    
-    ListNode middle = prev.next;
-    ListNode tail = prev.next.next;
+    var middle = prev.next;
+    var tail = prev.next.next;
     
     middle.next = tail.next;
     prev.next = tail;
@@ -33,9 +33,9 @@ function swap(prev) {
 每交换一次，向右移动两格
 
 function swapPairs(head) {
-    ListNode node = new ListNode(0);
+    var node = new ListNode(0);
     node.next = head;
-    ListNode prev = node;
+    var prev = node;
     while(prev.next == null || prev.next.next == null) {
         swap(prev);
         prev = prev.next.next;
