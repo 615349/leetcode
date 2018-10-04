@@ -10,47 +10,39 @@
  *
  */
 
-// Definition for singly-linked list.
-function ListNode(val) {
-    this.val = val;
-    this.next = null;
+首先建立一个node，该node指向head，那么返回的时候直接返回该node的指向就可以了
+
+node -> 1 -> 2 -> 3 -> 4 -> 5
+
+如果现在要交换3，4两个点，那么需要改动2，3，和4节点（因为2的指向也改变了）
+
+因此创建一个节点prev，并建立一个函数，以prev为入参
+function swap(prev) {    
+    ListNode middle = prev.next;
+    ListNode tail = prev.next.next;
+    
+    middle.next = tail.next;
+    prev.next = tail;
+    tail.next = middle;
 }
 
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
-var swapPairs = function (head) {
-    var t = new ListNode(0);
-    t.next = head;
+一开始的prev指向node，假设做了一些swap之后，prev向右移动了。那么时候停止呢？上面说了，是三个一组进行交换的。
+比如现在prev指向了2，如果3或者4不存在，那么就停止了
+也就是说如果prev的一下个节点或者下下个节点就停止循环了
 
-    var a = t;
+每交换一次，向右移动两格
 
-    while (true) {
-        if (!a) break;
-        var b = a.next;
-        if (!b) break;
-        var c = b.next;
-        if (!c) break;
-
-        b.next = c.next;
-        c.next = b;
-        a.next = c;
-        a = b;
-
+function swapPairs(head) {
+    ListNode node = new ListNode(0);
+    node.next = head;
+    ListNode prev = node;
+    while(prev.next == null || prev.next.next == null) {
+        swap(prev);
+        prev = prev.next.next;
     }
-    return t.next;
-};
+    
+    return node.next;
+}
 
-console.log(swapPairs({
-    val: 1,
-    next: {
-        val: 2,
-        next: {
-            val: 3,
-            next: {
-                val: 4
-            }
-        }
-    }
-}))
+
+
