@@ -9,8 +9,7 @@
  * Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
  *
  */
-
-首先建立一个node，该node指向head，那么返回的时候直接返回该node的指向就可以了
+因为链表会翻转，所以head不再是翻转后的head了。所以首先建立一个node，该node指向head，那么返回的时候直接返回该node的指向就可以了.
 
 node -> 1 -> 2 -> 3 -> 4 -> 5
 
