@@ -19,110 +19,51 @@ function ListNode(val) {
     this.next = null;
 }
 
-/**
- * @param {ListNode} head
- * @param {number} k
- * @return {ListNode}
- */
-var reverseKGroup = function (head, k) {
-    // if (k === 1)
-    //     return head;
-    var t = new ListNode(0);
-    t.next = head;
-    var s = t;
+删除多个节点。
+if k is 3,
+dummy -> 1 -> 2 -> 3 -> 4
+  |                     |
+ pre                   next
+把pre和next之间的都翻转
+实现一个子函数来做两个节点之间的翻转。该函数应该两个两个翻转 
+ 
 
-    while (true) {
-        var cnt = 0;
-        var f = t;
-        while (cnt++ < k && f) {
-            f = f.next;
-        }
-        // console.log(p(t), p(f));
-
-        if (!f || cnt !== k + 1) break;
-        cnt = 0;
-        var a = t.next;
-
-        while (++cnt < k) {
-            var b = a.next;
-            a.next = b.next;
-            b.next = t.next;
-            t.next = b;
-            // console.log(p(t), p(a), p(b));
-        }
-        t = a;
+public ListNode reverseKGroup(ListNode head, int k) {
+    if(head == null){
+        return null;
     }
-
-    return s.next;
-};
-
-function p(n) {
-    var t = n;
-    var s = '';
-    while (t) {
-        s = s + t.val + '->';
-        t = t.next;
+    ListNode dummy = new ListNode(0);
+    dummy.next = head;
+    int count = 0;
+    ListNode pre = dummy;
+    ListNode cur = head;
+    while(cur != null)
+    {
+        count ++;
+        ListNode next = cur.next;
+        if(count == k)
+        {
+            pre = reverse(pre, next);
+            count = 0;   
+        }
+        cur = next;
     }
-    s += 'null';
-    return s;
+    return dummy.next;
 }
-//
-console.log(p(reverseKGroup({
-    val: 1,
-    next: {
-        val: 2,
-        next: {
-            val: 3,
-            next: {
-                val: 4
-            }
-        }
+private ListNode reverse(ListNode pre, ListNode end)
+{
+    if(pre==null || pre.next==null)
+        return pre;
+    ListNode head = pre.next;
+    ListNode cur = pre.next.next;
+    while(cur!=end)
+    {
+        ListNode next = cur.next;
+        cur.next = pre.next;
+        pre.next = cur;
+        cur = next;
     }
-}, 2)))
-
-console.log(p(reverseKGroup({val: 1}, 2)));
-
-console.log(p(reverseKGroup({
-    val: 1,
-    next: {
-        val: 2
-    }
-}, 2)))
-
-console.log(p(reverseKGroup({
-    val: 1,
-    next: {
-        val: 2,
-        next: {
-            val: 3,
-            next: {
-                val: 4,
-                next: {
-                    val: 5,
-                    next: {
-                        val: 6,
-                        next: {
-                            val: 7
-                        }
-                    }
-                }
-            }
-        }
-    }
-}, 3)))
-//
-
-console.log(p(reverseKGroup({
-    val: 1,
-    next: {
-        val: 2,
-        next: {
-            val: 3,
-            next: {
-                val: 4,
-                next: null
-            }
-        }
-    }
-}, 2)));
+    head.next = end;
+    return head;
+}
 
