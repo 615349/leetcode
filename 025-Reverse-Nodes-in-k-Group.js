@@ -35,6 +35,24 @@ dummy -> 1 ->  2 ->  3 -> 4 -> 5
  |       |     |          |
 pre     last  cur        next
 
+
+          _____________
+         |             |
+dummy -> 1 -x->  2 ->  3 -> 4 -> 5
+ |       |       |          |
+pre     last     cur       next
+
+
+
+          _____________
+         |             |
+dummy -> 1 -x->  2 -x->  3 -> 4 -> 5
+ | |   |  |                    |
+pre|   | last                 next
+   |   |
+   |_2_|
+
+
 dummy -> 2 ->  1 ->  3 -> 4 -> 5
  |       |     |          |
 pre     cur  last        next
