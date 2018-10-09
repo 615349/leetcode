@@ -25,7 +25,23 @@ dummy -> 1 -> 2 -> 3 -> 4
   |                     |
  pre                   next
 把pre和next之间的都翻转
-实现一个子函数来做两个节点之间的翻转。该函数应该两个两个翻转 
+
+实现一个子函数来做两个节点之间的翻转。 
+dummy -> 1 ->  2 ->  3 -> 4 -> 5
+ |                        |
+pre                      next
+
+dummy -> 1 ->  2 ->  3 -> 4 -> 5
+ |       |     |          |
+pre     last  cur        next
+
+dummy -> 2 ->  1 ->  3 -> 4 -> 5
+ |       |     |          |
+pre     cur  last        next
+
+dummy -> 2 ->  1 ->  3 -> 4 -> 5
+ |             |     |    |
+pre          last   cur  next
  
 
 public ListNode reverseKGroup(ListNode head, int k) {
@@ -50,20 +66,15 @@ public ListNode reverseKGroup(ListNode head, int k) {
     }
     return dummy.next;
 }
-private ListNode reverse(ListNode pre, ListNode end)
-{
-    if(pre==null || pre.next==null)
-        return pre;
-    ListNode head = pre.next;
-    ListNode cur = pre.next.next;
-    while(cur!=end)
-    {
-        ListNode next = cur.next;
-        cur.next = pre.next;
-        pre.next = cur;
-        cur = next;
+ListNode reverse(ListNode pre, ListNode next) {
+        ListNode last = pre->next;
+        ListNode cur = last->next;
+        while(cur != next) {
+            last->next = cur->next;
+            cur->next = pre->next;
+            pre->next = cur;
+            cur = last->next;
+        }
+        return last;
     }
-    head.next = end;
-    return head;
-}
 
