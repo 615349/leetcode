@@ -14,6 +14,16 @@
  * @param {number[]} nums
  * @return {void} Do not return anything, modify nums in-place instead.
  */
+如果是1，2，3排序
+1 2 3
+1 3 2
+2 1 3
+2 3 1
+3 1 2
+3 2 1
+所以题目的意思是，从上面的某一行重排到期下一行，如果已经是最后一行了，则重排成第一行。
+
+
 var nextPermutation = function (nums) {
 
     if (nums.length < 2) return;
@@ -49,39 +59,8 @@ function reverse(nums, s, e) {
 
         swap(nums, s + i, e - i);
     }
-    // return nums;
 }
 
-// console.log(reverse([1, 2, 3, 4, 5], 0, 4));
-// console.log(reverse([1, 2, 3, 4, 5], 3, 4));
-// console.log(reverse([1, 2, 3, 4, 5], 2, 3));
-// console.log(reverse([1, 2, 3, 4, 5], 1, 1));
-// console.log(reverse([1, 2, 3, 4, 5], 1, 4));
 
-// var nums = [1, 2, 5, 4, 3];
-// console.log(nums);
-// nextPermutation(nums);
-// console.log(nums);
-//
-console.log('====');
-
-var nums = [2, 3, 1];
-console.log(nums);
-nextPermutation(nums);
-console.log(nums);
-
-console.log('====');
-
-var nums = [1, 1];
-console.log(nums);
-nextPermutation(nums);
-console.log(nums);
-
-console.log('====');
-
-var nums = [3, 2, 1];
-console.log(nums);
-nextPermutation(nums);
-console.log(nums);
 
 
