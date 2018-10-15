@@ -41,7 +41,7 @@ i从0开始，每次增加 m*n, i <= string.length - m*n, 因为剩下的是m*n 
 然后在i1和i2之间，使用一个变量j，每次增加n, i.e.
 j = i1
 j = i1 + n
-j = i1 + 2n
+j = i1 + 2*n
 ...
 j = i1 + (m-1)*n
 
