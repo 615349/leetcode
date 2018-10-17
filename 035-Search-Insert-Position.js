@@ -15,14 +15,13 @@
  */
 
 /**
- * 解题思路
- *
- * 找到不比目标元素大的索引即可
- *
  * @param {number[]} nums
  * @param {number} target
  * @return {number}
  */
+
+因为没有重复的，又是递增的，那么只要找到<=的那个数就可以了
+
 var searchInsert = function (nums, target) {
 
     for (var i = 0; i < nums.length; i++) {
