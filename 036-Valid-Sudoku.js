@@ -13,55 +13,67 @@
  * @param {character[][]} board
  * @return {boolean}
  */
-var isValidSudoku = function (board) {
-    for (var i = 0; i < 9; i++) {
-        var rowNums = [];
-        var colNums = [];
-        var cubeNums = [];
 
-        for (var j = 0; j < 9; j++) {
-            var ch = board[i][j];
-            if (ch !== '.') {
-                if (rowNums.indexOf(ch) > -1) return false;
-                rowNums.push(ch);
-            }
+[
+  ["5","3",".",".","7",".",".",".","."],
+  ["6",".",".","1","9","5",".",".","."],
+  [".","9","8",".",".",".",".","6","."],
+  ["8",".",".",".","6",".",".",".","3"],
+  ["4",".",".","8",".","3",".",".","1"],
+  ["7",".",".",".","2",".",".",".","6"],
+  [".","6",".",".",".",".","2","8","."],
+  [".",".",".","4","1","9",".",".","5"],
+  [".",".",".",".","8",".",".","7","9"]
+]
 
-            ch = board[j][i];
-            if (ch !== '.') {
-                if (colNums.indexOf(ch) > -1) return false;
-                colNums.push(ch);
-            }
 
-            var row = Math.floor(i / 3) * 3 + Math.floor(j / 3);
-            var col = i % 3 * 3 + j % 3;
-            // console.log(i, j, row, col);
-            ch = board[row][col];
-            if (ch !== '.') {
-                if (cubeNums.indexOf(ch) > -1) return false;
-                cubeNums.push(ch);
+九宫格游戏，横有9个格子，竖着有9个格子，判断是否valid
+需要判断横线是否有重复，竖着是否有重复，小格子是否有重复
+
+class Solution {
+public:
+    bool isValidSudoku(vector<vector<char> > &board) {
+        if(board.size()!=9 || board[0].size()!=9) return false;
+        
+        // check row
+        for(int i=0; i<9; i++) {
+            vector<bool> used(9,false);
+            for(int j=0; j<9; j++) {
+                if(board[i][j] == '.') continue; 
+                int k = board[i][j]-'0';
+                if(k==0 || used[k-1]) return false;
+                used[k-1] = true;
             }
         }
+        
+        //check col
+        for(int j=0; j<9; j++) {
+            vector<bool> used(9,false);
+            for(int i=0; i<9; i++) {
+                if(board[i][j] == '.') continue;
+                int k = board[i][j]-'0';
+                if(k==0 || used[k-1]) return false;
+                used[k-1] = true;
+            }
+        }
+        
+        // check subbox
+        for(int i=0; i<3; i++) {
+            for(int j=0; j<3; j++) {
+                int row = 3*i;
+                int col = 3*j;
+                vector<bool> used(9,false);
+                for(int m=row; m<row+3; m++) {
+                    for(int n=col; n<col+3; n++) {
+                        if(board[m][n] == '.') continue;
+                        int k = board[m][n]-'0';
+                        if(k==0 || used[k-1]) return false;
+                        used[k-1]=true;
+                    }
+                }
+            }
+        }
+        
+        return true;
     }
-    return true;
 };
-
-// console.log(isValidSudoku([
-//     [".", "8", "7", "6", "5", "4", "3", "2", "1"],
-//     ["2", ".", ".", ".", ".", ".", ".", ".", "."],
-//     ["3", ".", ".", ".", ".", ".", ".", ".", "."],
-//     ["4", ".", ".", ".", ".", ".", ".", ".", "."],
-//     ["5", ".", ".", ".", ".", ".", ".", ".", "."],
-//     ["6", ".", ".", ".", ".", ".", ".", ".", "."],
-//     ["7", ".", ".", ".", ".", ".", ".", ".", "."],
-//     ["8", ".", ".", ".", ".", ".", ".", ".", "."],
-//     ["9", ".", ".", ".", ".", ".", ".", ".", "."]]));
-console.log(isValidSudoku([
-    [".", ".", "4", ".", ".", ".", "6", "3", "."],
-    [".", ".", ".", ".", ".", ".", ".", ".", "."],
-    ["5", ".", ".", ".", ".", ".", ".", "9", "."],
-    [".", ".", ".", "5", "6", ".", ".", ".", "."],
-    ["4", ".", "3", ".", ".", ".", ".", ".", "1"],
-    [".", ".", ".", "7", ".", ".", ".", ".", "."],
-    [".", ".", ".", "5", ".", ".", ".", ".", "."],
-    [".", ".", ".", ".", ".", ".", ".", ".", "."],
-    [".", ".", ".", ".", ".", ".", ".", ".", "."]]))
