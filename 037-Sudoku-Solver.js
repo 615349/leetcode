@@ -11,26 +11,30 @@
  * @param {character[][]} board
  * @return {void} Do not return anything, modify board in-place instead.
  */
+
+九宫格游戏，已经填了部分的格子，计算出剩余格子应该填什么
+
+典型的dfs
+
+i和j的两层循环，如果发现任何一个点不是数字，那么对该点进行从1到9进行匹配
+放入任何一个数字如果是valid，那么就把这个格子放入这个数字，然后进行recursive
+判断是否valid的方法是，在这一行，一列，以及本身格子里进行判断是否有重复，有则invalid
+
+如果完全没有遇到点，遇到的全是数字，则直接返回true，已经找到答案了
+
+
 var solveSudoku = function (board) {
     solve(board);
-    console.log(board);
 };
 
 function solve(board) {
     for (var i = 0; i < 9; i++) {
         for (var j = 0; j < 9; j++) {
-            var ch = board[i][j];
-            if (ch === '.') {
+            if (board[i][j] === '.') {
                 for (var k = 1; k <= 9; k++) {
-
                     if (isValid(i, j, board, '' + k)) {
-
                         board[i][j] = '' + k;
-                        // console.log(board);
-                        // console.log('-------------');
                         if (solve(board)) {
-                            // console.log(board);
-                            // console.log('-------------');
                             return true;
                         } else {
                             board[i][j] = '.';
@@ -45,7 +49,6 @@ function solve(board) {
 }
 
 function isValid(row, col, board, t) {
-
     for (var i = 0; i < 9; i++) {
         var ch = board[row][i];
         if (ch === t) return false;
@@ -54,35 +57,7 @@ function isValid(row, col, board, t) {
         if (ch === t) return false;
 
         ch = board[Math.floor(row / 3) * 3 + Math.floor(i / 3)][Math.floor(col / 3) * 3 + i % 3];
-        // if (row === 0 && col === 8) {
-        //     console.log('~ ', Math.floor(row / 3) * 3 + Math.floor(i / 3), Math.floor(row / 3) * 3 + i % 3, ch);
-        // }
         if (ch === t) return false;
     }
     return true;
-
 }
-
-console.log(solveSudoku([
-    [".", ".", "9", "7", "4", "8", ".", ".", "."],
-    ["7", ".", ".", ".", ".", ".", ".", ".", "."],
-    [".", "2", ".", "1", ".", "9", ".", ".", "."],
-    [".", ".", "7", ".", ".", ".", "2", "4", "."],
-    [".", "6", "4", ".", "1", ".", "5", "9", "."],
-    [".", "9", "8", ".", ".", ".", "3", ".", "."],
-    [".", ".", ".", "8", ".", "3", ".", "2", "."],
-    [".", ".", ".", ".", ".", ".", ".", ".", "6"],
-    [".", ".", ".", "2", "7", "5", "9", ".", "."]
-]));
-
-console.log([
-    ["5", "1", "9", "7", "4", "8", "6", "3", "2"],
-    ["7", "8", "3", "6", "5", "2", "4", "1", "9"],
-    ["4", "2", "6", "1", "3", "9", "8", "7", "5"],
-    ["3", "5", "7", "9", "8", "6", "2", "4", "1"],
-    ["2", "6", "4", "3", "1", "7", "5", "9", "8"],
-    ["1", "9", "8", "5", "2", "4", "3", "6", "7"],
-    ["9", "7", "5", "8", "6", "3", "1", "2", "4"],
-    ["8", "3", "2", "4", "9", "1", "7", "5", "6"],
-    ["6", "4", "1", "2", "7", "5", "9", "8", "3"]
-])
