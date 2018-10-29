@@ -28,31 +28,61 @@
  * Output: "1211"
  */
 
-/**
- * @param {number} n
- * @return {string}
- */
-var countAndSay = function (n) {
-    var ans = '1';
-    for (var i = 1; i < n; i++) {
-        var tmp = '';
-        var cnt = 1;
-        for (var j = 1; j < ans.length; j++) {
-            if (ans[j] === ans[j - 1]) cnt++;
-            else {
-                tmp += (cnt + ans[j - 1]);
-                cnt = 1;
-            }
+
+解释一下就是，输入n，那么我就打出第n行的字符串。
+
+怎么确定第n行字符串呢？他的这个是有规律的。
+
+ n = 1时，打印一个1。
+
+ n = 2时，看n=1那一行，念：1个1，所以打印：11。
+
+ n = 3时，看n=2那一行，念：2个1，所以打印：21。
+
+ n = 4时，看n=3那一行，念：一个2一个1，所以打印：1211。
+
+以此类推。(注意这里n是从1开始的）
+
+所以构建当前行的字符串要依据上一行的字符串。
+      
+      
+使用的方法挺简单的，用递归函数。首先得到n - 1的结果，然后开始从头开始数
+使用一个指针，以下面的例子，一开始指向0，然后用currentValue一位一位开始比较
+      
+11121
+^
+|
+currentValue
+      
+
+然后指向下一个不同的数
+
+11121
+   ^
+   |
+   currentValue
+      
+      
+var countAndSay = function(n) {
+    if (n <= 0) throw new Error('Incorrect argument');
+    if (n === 1) return '1';
+    
+    const prevResult = countAndSay(n - 1);
+    let count = 0;
+    let currentValue = prevResult[0];
+    let result = ''
+    for(let i = 0; i < prevResult.length; i++) {
+        if(currentValue === prevResult[i]) {
+            count++;
+        } else {
+            result += '' + count + currentValue;
+            currentValue = prevResult[i];
+            count = 1;
         }
-        ans = tmp + cnt + ans[j - 1];
     }
-
-    return ans;
+    
+    if (count > 0) {
+        result += '' + count + currentValue;
+    }
+    return result;
 };
-
-console.log(countAndSay(1));
-console.log(countAndSay(2));
-console.log(countAndSay(3));
-console.log(countAndSay(4));
-console.log(countAndSay(5));
-console.log(countAndSay(6));
