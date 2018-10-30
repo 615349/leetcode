@@ -25,7 +25,9 @@
 相类似的题目有 Path Sum II，Subsets II，Permutations，Permutations II，Combinations 等等，
 如果仔细研究这些题目发现都是一个套路，都是需要另写一个递归函数，
 这里我们新加入三个变量，start记录当前的递归到的下标，out为一个解，res保存所有已经得到的解，
-每次调用新的递归函数时，此时的target要减去当前数组的的数，具体看代码如下：
+每次调用新的递归函数时，此时的target要减去当前数组的的数，如果该数小于0，说明这个组合不行。比如[3, 5], target = 4
+第一次调用后，target变成1，接着从头开始，target - 3 = -2, 递归结束
+如果target刚好为0，则说明找到了
 
 class Solution {
 public:
