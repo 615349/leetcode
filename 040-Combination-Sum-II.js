@@ -19,27 +19,33 @@
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum2 = function (candidates, target) {
 
-    var res = [];
-    var temp = [];
-    candidates.sort((b, a) => b - a);
-    helper(res, temp, candidates, target, 0);
-    return res;
-};
+跟39类似
 
-function helper(res, temp, candidates, target, start) {
-    if (target === 0) {
-        return res.push([...temp]);
+public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+    List<List<Integer>> result = new ArrayList<List<Integer>>();
+    List<Integer> curr = new ArrayList<Integer>();
+    Arrays.sort(candidates);
+    helper(result, curr, 0, target, candidates);
+    return result;
+}
+ 
+public void helper(List<List<Integer>> result, List<Integer> curr, int start, int target, int[] candidates){
+    if(target==0){
+        result.add(new ArrayList<Integer>(curr));
+        return;
     }
-
-    for (var i = start; i < candidates.length && candidates[i] <= target; i++) {
-        if (i === start || candidates[i] !== candidates[i - 1]) {
-            temp.push(candidates[i]);
-            helper(res, temp, candidates, target - candidates[i], i + 1);
-            temp.length -= 1;
+    if(target<0){
+        return;
+    }
+ 
+    int prev=-1;
+    for(int i=start; i<candidates.length; i++){
+        if(prev!=candidates[i]){ // each time start from different element
+            curr.add(candidates[i]);
+            helper(result, curr, i+1, target-candidates[i], candidates); // and use next element only
+            curr.remove(curr.size()-1);
+            prev=candidates[i];
         }
     }
 }
-
-console.log(combinationSum2([10, 1, 2, 7, 6, 1, 5], 8));
