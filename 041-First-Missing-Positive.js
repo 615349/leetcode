@@ -24,35 +24,25 @@
  * @param {number[]} nums
  * @return {number}
  */
-var firstMissingPositive = function (nums) {
-    var n = nums.length;
-    var i = 0;
-    // console.log(nums);
-    while (i < n) {
-        var c = nums[i];
-        if (c > 0 && n < n + 1 && c !== i + 1 && nums[c - 1] !== nums[i]) {
-            swap(nums, c - 1, i);
-            // console.log('-->', nums);
+
+这题的难度应该是简单
+
+设置answer为1
+如果该数组不包含1，说明1一定是结果
+如果有1，那就answer++
+
+任何时候该数组不包含即找到了答案
+
+另外外面的数组循环，只要考虑一个情况：如果数组的元素是1到10怎么办，就知道了
+
+var firstMissingPositive = function(nums) {
+    let ans = 1;
+    for(let i = 0; i < nums.length; i++) {
+        if (nums.includes(ans)) {
+            ans++;
         } else {
-            i++;
+            break;
         }
-
     }
-
-    // console.log(nums);
-    for (var i = 0; i < n; i++) {
-        if (nums[i] !== i + 1) return i + 1;
-    }
-    return n + 1;
+    return ans;
 };
-
-function swap(nums, i, j) {
-    var tmp = nums[i];
-    nums[i] = nums[j];
-    nums[j] = tmp;
-}
-
-// console.log(firstMissingPositive([1, 2, 0]));
-console.log(firstMissingPositive([3, 4, -1, 1]));
-// console.log(firstMissingPositive([1, 1]));
-// console.log(firstMissingPositive([2, 2]));
