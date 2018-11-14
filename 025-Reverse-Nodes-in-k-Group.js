@@ -19,7 +19,7 @@ function ListNode(val) {
     this.next = null;
 }
 
-删除多个节点。
+翻转多个节点。
 if k is 3,
 dummy -> 1 -> 2 -> 3 -> 4
   |                     |
