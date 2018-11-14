@@ -28,3 +28,30 @@ const left = {
 }
 ```
 
+
+2a, swap two numbers by bitwise operation
+
+如果互换两个数
+最简单的当然是
+tmp = a;
+a = b;
+b = tmp;
+
+如果要效率更高，或者说不借助额外的变量，那么
+a = a ^ b;
+b = a ^ b;
+a = a ^ b;
+
+第二句
+b = a ^ b ^ b;
+b ^ b is 0, a ^ 0 is a. (假如a是110110 ^ 0 = 110110， 因为1和0不同，不同所以为1，0和0相同，相同所以为0)
+第三局
+a = a ^ b, 这里a = a ^ b, b = a
+so
+a = a ^ b ^ a === b
+
+
+2b, swap two numbers by destructing
+const swap = (a, b) => [b, a];
+let a = 100, b = 200;
+[b, a] = swap(a, b);
