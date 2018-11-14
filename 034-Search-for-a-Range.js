@@ -23,30 +23,37 @@
 
 
 
-class SearchRange {
-    public int[] searchRange(int[] nums, int target) {
-        int upper = upperOrLower(nums, target, true);
-        int lower = upperOrLower(nums, target, false);
-        return new int[]{lower,upper};
+const getBoundary = (nums, target, boundary) => {
+  let left = 0;
+  let right = nums.length - 1;
+  let mid = 0;
+  let result = -1;
+  while (left <= right) {
+    mid = left + Math.floor((right - left) / 2);
+    if (target === nums[mid]) {
+      result = mid;
+      if (boundary === 'left') {
+        right = mid - 1;
+      } else if (boundary === 'right') {
+        left = mid + 1;
+      }
+    } else if (nums[mid] > target) {
+      right = mid - 1;
+    } else {
+      left = mid + 1;
     }
+  }
 
-    int upperOrLower(int[] nums, int target, boolean upper){
-        int left = 0;
-        int right = nums.length - 1;
-        int res = -1;
-        int mid;
-        while(left <= right){
-            mid = left + (right - left) / 2;
-            if(nums[mid] == target){
-                res = mid;
-                if(upper){
-                    left = mid + 1;
-                }else right = mid - 1;
-            }
-            else if(nums[mid] > target) right = mid -1;
-            else left = mid + 1;
-        }
-        return res;
-    }
-}
+  return result;
+};
+
+const searchRange = (nums, target) => {
+  if (nums.length === 0) {
+    return [-1, -1];
+  }
+
+  const left = getBoundary(nums, target, 'left');
+  const right = getBoundary(nums, target, 'right');
+  return [left, right];
+};
 
