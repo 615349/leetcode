@@ -31,12 +31,12 @@ const groupAnagrams = array => {
   for (let i = 0; i < array.length; i++) {
     let tmp = Array.from(array[i]);
     tmp.sort();
-	let str = tmp.join('');
+    let str = tmp.join('');
     let value = [];
     if (map.has(str)) {
       value = map.get(str);
     }
-	//不管该key是否在map中，都需要进行push和set操作
+    //不管该key是否在map中，都需要进行push和set操作
     value.push(array[i]);
     map.set(str, value);
   }
