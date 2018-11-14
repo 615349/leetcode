@@ -80,15 +80,13 @@ function findSwap(nums, s, e, target) {
     return -1;
 }
 
-function swap(nums, s, e) {
-    var t = nums[s];
-    nums[s] = nums[e];
-    nums[e] = t;
+function swap(nums, s, e) {    
+    nums[s] = nums[s] ^ nums[e];
+    nums[e] = nums[s] ^ nums[e];
+    nums[s] = nums[s] ^ nums[e];
 }
 function reverse(nums, s, e) {
-    // var len = e - s;
     for (var i = 0; i < Math.ceil((e - s ) / 2); i++) {
-
         swap(nums, s + i, e - i);
     }
 }
