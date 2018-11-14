@@ -65,3 +65,5 @@ let a = 100, b = 200;
 [b, a] = swap(a, b);
 ```
 
+3, complexity
+二分法一般都是o(logn)
