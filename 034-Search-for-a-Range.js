@@ -21,41 +21,32 @@
 因为是已经排序好的递增数组，那么使用两次二分法，
 第一次找到左边的区间，第二次找到右边的区间
 
-const searchRange = (nums, target) => {
-  let result = [-1, -1];
 
-  if (nums.length === 0) {
-    return result;
-  }
 
-  let left = 0;
-  let right = nums.length - 1;
-  let mid = 0;
-  while (left <= right) {
-    mid = left + Math.floor((right - left) / 2);
-    if (nums[mid] < target) {
-      left = mid + 1;
-    } else {
-      right = mid - 1;
+class SearchRange {
+    public int[] searchRange(int[] nums, int target) {
+        int upper = upperOrLower(nums, target, true);
+        int lower = upperOrLower(nums, target, false);
+        return new int[]{lower,upper};
     }
-  }
 
-  let start = 0;
-  let end = nums.length - 1;
-  while (start <= end) {
-    mid = start + Math.floor((end - start) / 2);
-    if (nums[mid] > target) {
-      end = mid - 1;
-    } else {
-      start = mid + 1;
+    int upperOrLower(int[] nums, int target, boolean upper){
+        int left = 0;
+        int right = nums.length - 1;
+        int res = -1;
+        int mid;
+        while(left <= right){
+            mid = left + (right - left) / 2;
+            if(nums[mid] == target){
+                res = mid;
+                if(upper){
+                    left = mid + 1;
+                }else right = mid - 1;
+            }
+            else if(nums[mid] > target) right = mid -1;
+            else left = mid + 1;
+        }
+        return res;
     }
-  }
-
-  if (left <= end) {
-    result[0] = left;
-    result[1] = end;
-  }
-
-  return result;
-};
+}
 
