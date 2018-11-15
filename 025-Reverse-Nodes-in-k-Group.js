@@ -74,10 +74,6 @@ pre          last   cur  next
  * @param {number} k
  * @return {ListNode}
  */
-function ListNode(val) {
-  this.val = val;
-  this.next = null;
-}
 
 function reverse(prev, next) {
   let last = prev.next;
@@ -100,7 +96,6 @@ var reverseKGroup = function(head, k) {
   dummy.next = head;
 
   let prev = dummy;
-  const tmp = prev;
   let current = head;
   let count = 0;
   while (current) {
