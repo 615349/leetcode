@@ -72,9 +72,10 @@ let a = 100, b = 200;
 
 
 4, 取中点
+```js
 let mid = Math.floor((left + right)/2);
 这样可能导致溢出。
 所以一般是
 mid = left + Math.floor((right - left)/2);
-
+```
 
