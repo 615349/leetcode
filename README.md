@@ -58,6 +58,7 @@ so
 a = a ^ b ^ a === b
 ```
 
+
 2b, swap two numbers by destructing
 ```js
 const swap = (a, b) => [b, a];
@@ -65,5 +66,15 @@ let a = 100, b = 200;
 [b, a] = swap(a, b);
 ```
 
+
 3, complexity
 二分法一般都是o(logn)
+
+
+4, 取中点
+let mid = Math.floor((left + right)/2);
+这样可能导致溢出。
+所以一般是
+mid = left + Math.floor((right - left)/2);
+
+
