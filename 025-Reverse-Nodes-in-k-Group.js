@@ -62,37 +62,59 @@ dummy -> 2 ->  1 ->  3 -> 4 -> 5
 pre          last   cur  next
  
 
-public ListNode reverseKGroup(ListNode head, int k) {
-    if(head == null){
-        return null;
-    }
-    ListNode dummy = new ListNode(0);
-    dummy.next = head;
-    int count = 0;
-    ListNode pre = dummy;
-    ListNode cur = head;
-    while(cur != null)
-    {
-        count ++;
-        ListNode next = cur.next;
-        if(count == k)
-        {
-            pre = reverse(pre, next);
-            count = 0;   
-        }
-        cur = next;
-    }
-    return dummy.next;
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode}
+ */
+function ListNode(val) {
+  this.val = val;
+  this.next = null;
 }
-ListNode reverse(ListNode pre, ListNode next) {
-        ListNode last = pre->next;
-        ListNode cur = last->next;
-        while(cur != next) {
-            last->next = cur->next;
-            cur->next = pre->next;
-            pre->next = cur;
-            cur = last->next;
-        }
-        return last;
+
+function reverse(prev, next) {
+  let last = prev.next;
+  let cur = last.next;
+  while (cur !== next) {
+    last.next = cur.next;
+    cur.next = prev.next;
+    prev.next = cur;
+    cur = last.next;
+  }
+  return last;
+}
+
+var reverseKGroup = function(head, k) {
+  if (head === null || head.next === null || k === 1) {
+    return head;
+  }
+
+  const dummy = new ListNode(0);
+  dummy.next = head;
+
+  let prev = dummy;
+  const tmp = prev;
+  let current = head;
+  let count = 0;
+  while (current) {
+    ++count;
+    let next = current.next;
+    if (count === k) {
+      prev = reverse(prev, next);
+      count = 0;
     }
+    current = next;
+  }
+
+  return dummy.next;
+};
+
+
 
