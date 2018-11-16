@@ -80,6 +80,8 @@ mid = left + Math.floor((right - left)/2);
 ```
 
 5, initialize two dimensional array
+```js
 const dp = [];
 const n = 5;
 while(dp.push(new Array(n).fill(0)) < n);
+```
