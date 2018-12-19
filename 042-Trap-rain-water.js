@@ -28,43 +28,60 @@ const right =
 单个坐标的储水量是min(left[i], right[i]) - height[i]
 也就是根据木桶原理，需要左边和右边的较小值，然后减去该坐标本身的高度
 
-public class Solution {
-    /**
-     * @param heights: an array of integers
-     * @return: a integer
-     */
-    public int trapRainWater(int[] heights) {
-        if (heights == null || heights.length < 3) {
-            return 0;
-        }
-        int length = heights.length;
+const trap = (height) => {
+    if (!height || height.length < 3) return 0;
 
-        int[] left = new int[length];
-        int[] right = new int[length];
+    const { length } = height;
 
-        int trapped = 0;
+    let left = [];
+    let right = [];
+    left[0] = 0;
+    right[length - 1] = 0;
 
-        // For heights[0] or heights[length - 1], the max left/right height is 0
-        left[0] = 0;
-        right[length - 1] = 0;
-
-        // Keep track of the max height on the left of height[i]
-        for (int i = 1; i < length; i++) {
-            left[i] = Math.max(left[i - 1], heights[i - 1]);
-        }
-
-        // Keep track of the max height on the right of height[i]
-        for (int j = length - 2; j >= 0; j--) {
-            right[j] = Math.max(right[j + 1], heights[j + 1]);
-        }
-
-        // Calculate the total trapped water
-        for (int k = 0; k < length; k++) {
-            trapped += Math.max(Math.min(left[k], right[k]) - heights[k], 0);
-        }
-
-        return trapped;
+    for(let i = 1; i < length; i++) {
+        left[i] = Math.max(left[i - 1], height[i - 1]);
     }
+
+    for(let j = length - 2; j >= 0; j++) {
+        right[j] = Math.max(right[j + 1], height[j + 1]);
+    }
+
+    let result = 0;
+    let min;
+
+    for(let k = 0; k < length; k++) {
+        min = Math.min(left[k], right[k]);
+        result += Math.max(min - height[k], 0);
+    }
+
+    return result;
 }
+
+但是这个算法在leetcode的网站上通不过，原因是空间超过了
+
+实际上用同一个数组就可以了
+const trap = (height) => {
+    if (!height || height.length < 3) return 0;
+    
+    let result = 0;
+    const { length } = height;
+    
+    const dp = new Array(length).fill(0);
+    
+    for(let i = 1; i < length; i++) {
+        dp[i] = Math.max(dp[i - 1], height[i - 1]);
+    }
+    
+    let right = 0;
+    for(let j = length - 2; j >= 0; j--) {
+        right = Math.max(right, height[j + 1]);
+        dp[j + 1] = Math.min(dp[j + 1], right);
+        if (dp[j + 1] - height[j + 1] > 0) 
+            result += dp[j + 1] - height[j + 1];
+    }
+    
+    return result;
+}
+
 
 
