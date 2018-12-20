@@ -10,37 +10,83 @@
  * You must not use any built-in BigInteger library or convert the inputs to integer directly.
  */
 
-/**
- * @param {string} num1
- * @param {string} num2
- * @return {string}
- */
-var multiply = function (num1, num2) {
-    var m = num1.length;
-    var n = num2.length;
-    var arr = new Array(m + n).fill(0);
-    for (var i = m - 1; i >= 0; i--) {
-        for (var j = n - 1; j >= 0; j--) {
-            var mul = (num1[i] - '0') * (num2[j] - '0');
+使用string的原因是可以突破long long这样的存储限制
+具体如何计算的，举个例子
+		1	5
+	*	2	5
+------------------------------- //每个数字分别相乘
+		5	25
+	2	10
+------------------------------- //把每个位置上的相加
+	2	15	25
+------------------------------- //进制，把carrier进上去
+	2	15+2	 5
+-------------------------------
+	2	17	 5
+-------------------------------
+	2+1	7	 5
+-------------------------------
+	3	7	 5
 
-            var sum = mul + arr[i + j + 1];
+另外，如果一个m位数乘以n位数，结果最多为m + n
+比如3位数乘以2位数，那么num1 * num2 < 1,000 * 100 = 100,000
+所以最多是5位数，也就是m + n位数;最少是4位数，也就是m + n - 1为数
 
-            arr[i + j] += Math.floor(sum / 10);
-            arr[i + j + 1] = sum % 10;
-        }
+所以可以设立一个有m + n位数的数组，并且做初始化
+并且最后需要清除最高位可能的0
+
+const multiply = (num1, num2) => {
+  if (num1 === "0" || num2 === "0") return "0";
+
+  const len1 = num1.length;
+  const len2 = num2.length;
+  const result = new Array(len1 + len2).fill(0);
+  let i, j, mul, sum;
+  for (i = len2 - 1; i >= 0; i--) {
+    for (j = len1 - 1; j >= 0; j--) {
+      mul = Number(num2[i]) * Number(num1[j]);
+      //需要加上原来该位已有的值
+      sum = mul + result[i + j + 1];
+      result[i + j + 1] = sum % 10;
+      //如果是进位，则是自加。考虑mul是5，原来该值是6
+      //result[i + j + 1] = 1, result[i+j]则自加1
+      result[i + j] += Math.floor(sum / 10);
     }
+  }
 
-    var str = arr.reduce((a, b) => {
-        if (a === '' && b === 0) return a;
-        return a + b;
-    }, '');
+  //像上面说的，有些情况下最高位还是0，需要清除
+  if (result[0] === 0) {
+    return result.slice(1).join("");
+  }
 
-    return str ? str : '0';
-
+  return result.join("");
 };
 
-console.log(multiply('89', '45'));
-console.log(multiply('123', '123'));
-console.log(multiply('123', '0'));
 
+ts:
+const multiply = (num1: string, num2: string): string => {
+  if (num1 === "0" || num2 === "0") return "0";
+
+  const len1 = num1.length;
+  const len2 = num2.length;
+  const result: Array<number> = new Array(len1 + len2).fill(0);
+  let i: number = 0,
+    j: number = 0,
+    mul: number,
+    sum: number;
+  for (i = len2 - 1; i >= 0; i--) {
+    for (j = len1 - 1; j >= 0; j--) {
+      mul = Number(num2[i]) * Number(num1[j]);
+      sum = mul + result[i + j + 1];
+      result[i + j + 1] = sum % 10;
+      result[i + j] += Math.floor(sum / 10);
+    }
+  }
+
+  if (result[0] === 0) {
+    return result.slice(1).join("");
+  }
+
+  return result.join("");
+};
 
