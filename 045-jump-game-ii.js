@@ -11,6 +11,8 @@ Output: 2
 Explanation: The minimum number of jumps to reach the last index is 2.
     Jump 1 step from index 0 to 1, then 3 steps to the last index.
 
+可以跟055一起做
+
 注意，数组元素是在该位置最大的跳跃数，也就是说可以跳跃1，也可以跳跃num[i]
 
 有很多的方法，prefer dp
@@ -23,7 +25,7 @@ dp[0]肯定就是0了，dp[length - 1]就是所需的答案。那么怎么给dp[
 那么dp[i] = dp[j] + 1就一定也是最优解了, 并且可以break(没有break不能过)
 
 var jump = function(nums) {
-    if (!nums || nums.length <= 1) {
+    if (!nums || nums.length < 2) {
         return 0;
     }
     
