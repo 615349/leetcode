@@ -79,9 +79,33 @@ let mid = Math.floor((left + right)/2);
 mid = left + Math.floor((right - left)/2);
 ```
 
+
 5, initialize two dimensional array
 ```js
 const dp = [];
 const n = 5;
 while(dp.push(new Array(n).fill(0)) < n);
 ```
+
+
+6, dfs
+在dfs函数里，当条件满足时，如果是对数组进行操作，要对该数组进行拷贝操作
+比如
+```js
+const dfs = (nums, array, result) => {
+  if (nums.length === array.length) {
+    result.push([...array]);
+  } else {
+    for (let i = 0; i < nums.length; i++) {
+      if (array.includes(nums[i])) {
+        continue;
+      }
+
+      array.push(nums[i]);
+      dfs(nums, array, result);
+      array.pop();
+    }
+  }
+};
+```
+具体结果可以在046里面查看
