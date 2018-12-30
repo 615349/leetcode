@@ -80,11 +80,24 @@ mid = left + Math.floor((right - left)/2);
 ```
 
 
-5, initialize two dimensional array
+5, 初始化二维数组，其每个元素都是一个数组
 ```js
 const dp = [];
-const n = 5;
+const n = 3;
 while(dp.push(new Array(n).fill(0)) < n);
+
+得到的结果是
+[
+	[0, 0, 0],
+	[0, 0, 0],
+	[0, 0, 0]
+]
+而不是下面这个，因为下面是一维数组
+[
+	0, 0, 0,
+	0, 0, 0,
+	0, 0, 0
+]
 ```
 
 
@@ -109,3 +122,14 @@ const dfs = (nums, array, result) => {
 };
 ```
 具体结果可以在046里面查看
+
+如果这个数组是二维数组，那么不能直接像上面一样进行拷贝，而需要对每个元素单独进行拷贝
+```js
+const getClone = arr => {
+  const clone = [];
+  for (let i = 0; i < arr.length; i++) {
+    clone[i] = [...arr[i]];
+  }
+  return clone;
+};
+```

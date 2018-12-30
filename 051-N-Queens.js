@@ -87,7 +87,9 @@ cross2[i]表示第i条左上-右下方向的斜线是否已经存在皇后
 ...
 [3, 0] ==> 6
 所以是
-i - j + n - 1 = 斜对角线的index
+(j + x) - i = n - 1,
+so x = n - 1 + i - j 
+斜对角线的index
 
 
 
@@ -100,42 +102,49 @@ current[i][j] = '.'; column[j] = false; cross1[i + j] = false; cross2[i - j + n 
  * @param {number} n
  * @return {string[][]}
  */
-class Solution {
-public:
-    vector<vector<string>> solveNQueens(int n) {
-        vector<vector<string>> ans;
-        // 构造一个初始棋盘
-        vector<string> current(n, string(n, '.'));
-        // 构造用于判断攻击的数组
-        vector<bool> column(n, false);
-        vector<bool> cross1(n * 2 - 1, false);
-        vector<bool> cross2(n * 2 - 1, false);
-        // 回溯求解所有的方案
-        dfs(ans, current, 0, n, column, cross1, cross2);
-        // 返回所有答案
-        return ans;
-    }
-    void dfs(vector<vector<string>>& ans, vector<string> current, int i, int n, vector<bool>& column, vector<bool>& cross1, vector<bool>& cross2) {
-        // 判断是否已经枚举完了每一行的皇后位置，如果是，说明已经找到了一组解
-        if (i == n) {
-            ans.push_back(current);
-        }
-        else {
-            // 否则枚举当前行皇后放置的位置
-            for (int j = 0; j < n; j++) {
-                // 判断是否会和之前放置的皇后产生列上的冲突
-                if (column[j]) continue;
-                // 判断是否会和之前放置的皇后产生第一种对角线上的冲突
-                if (cross1[i + j]) continue;
-                // 判断是否会和之前放置的皇后产生第二种对角线上的冲突
-                if (cross2[i - j + n - 1]) continue;
-                // 如果都不产生冲突，说明当前方案合法，对状态进行修改并递归的枚举下一行的放置方案
-                current[i][j] = 'Q'; column[j] = true; cross1[i + j] = true; cross2[i - j + n - 1] = true;
-                dfs(ans, current, i + 1, n, column, cross1, cross2);
-                // 回溯，消去产生的修改
-                current[i][j] = '.'; column[j] = false; cross1[i + j] = false; cross2[i - j + n - 1] = false;
-            }
-        }
-    }
+const Q = "Q";
+const DOT = ".";
+
+const getClone = arr => {
+  const clone = [];
+  for (let i = 0; i < arr.length; i++) {
+    clone.push(arr[i].join(''))
+  }
+  return clone;
 };
 
+const dfs = (result, current, i, n, column, cross1, cross2) => {
+  if (i === n) {
+    result.push(getClone(current));
+  } else {
+    for (let j = 0; j < n; j++) {
+      if (column[j]) continue;
+      if (cross1[i + j]) continue;
+      if (cross2[n - 1 + i - j]) continue;
+
+      column[j] = true;
+      cross1[i + j] = true;
+      cross2[n - 1 + i - j] = true;
+      current[i][j] = Q;
+      dfs(result, current, i + 1, n, column, cross1, cross2);
+      column[j] = false;
+      cross1[i + j] = false;
+      cross2[n - 1 + i - j] = false;
+      current[i][j] = DOT;
+    }
+  }
+};
+
+var solveNQueens = function(n) {
+  const result = [];
+
+  const current = [];
+  while (current.push(new Array(n).fill(DOT)) < n);
+  const column = new Array(n).fill(false);
+  const cross1 = new Array(2 * n - 1).fill(false);
+  const cross2 = new Array(2 * n - 1).fill(false);
+
+  dfs(result, current, 0, n, column, cross1, cross2);
+
+  return result;
+};
