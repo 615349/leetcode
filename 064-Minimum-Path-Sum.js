@@ -13,27 +13,35 @@
  * Given the above grid map, return 7. Because the path 1→3→1→1→1 minimizes the sum.
  */
 
+跟062，063一起看
+dp[i][j]表示0，0到i，j的最小和
+对于dp[i][j]其解应该是Math.min(dp[i-1][j], dp[i][j-1]) 再加上当前的值
+
 /**
  * @param {number[][]} grid
  * @return {number}
  */
-var minPathSum = function (grid) {
-
-    var m = grid.length;
-    var n = grid[0].length;
-    var dp = [];
-    while (dp.push(new Array(n + 1).fill(Number.MAX_VALUE)) <= m);
-    dp[0][1] = 0;
-    dp[1][0] = 0;
-
-    for (var i = 1; i <= m; i++) {
-        for (var j = 1; j <= n; j++) {
-            dp[i][j] = grid[i - 1][j - 1] + Math.min(dp[i][j - 1], dp[i - 1][j]);
+var minPathSum = function(grid) {
+    const n = grid.length;
+    const m = grid[0].length;
+    const dp = [];
+    while(dp.push(new Array(m)) < n);
+    
+    dp[0][0] = grid[0][0];
+    
+    for(let i = 1; i < m; i++) {
+        dp[0][i] = dp[0][i-1] + grid[0][i];
+    }
+    
+    for(let i = 1; i < n; i++) {
+        dp[i][0] = dp[i-1][0] + grid[i][0];
+    }
+    
+    for(let i = 1; i < n; i++) {
+        for(let j = 1; j < m; j++) {
+            dp[i][j] = Math.min(dp[i-1][j], dp[i][j-1]) + grid[i][j];
         }
     }
-
-    return dp[m][n];
-
+    
+    return dp[n-1][m-1];
 };
-
-console.log(minPathSum([[1, 2], [1, 1]]));
