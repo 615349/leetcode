@@ -13,32 +13,39 @@
  * @param {string} b
  * @return {string}
  */
-var addBinary = function (a, b) {
-    var c = 0;
-    var alen = a.length;
-    var blen = b.length;
-    var ans = '';
-    for (var i = 0; i < Math.max(alen, blen); i++) {
-        var ai = i < alen ? parseInt(a[alen - i - 1]) : 0;
-        var bi = i < blen ? parseInt(b[blen - i - 1]) : 0;
 
-        var sum = ai + bi + c;
-        // console.log(ai, bi, c);
-        if (sum < 2) {
-            ans = sum + ans;
-            c = 0;
-        }
-        else {
-            ans = (sum - 2) + ans;
-            c = 1;
-        }
+跟066类似，不同的是上一题是对10 mod，实际上binary相加就是对2 mod
+
+var addBinary = function(a, b) {
+    let n1 = a.length - 1;
+    let n2 = b.length - 1;
+    
+    let carrier = 0, sum;
+    const result = [];
+        
+    while(n1 >= 0 && n2 >=0) {
+        sum = Number(a.charAt(n1)) + Number(b.charAt(n2)) + carrier;
+        carrier = Math.floor(sum/2);
+        result.unshift(sum%2);
+        --n1;
+        --n2;
     }
-    if (c) {
-        ans = 1 + ans;
+    
+    while (n1 >= 0) {
+        sum = Number(a.charAt(n1)) + carrier;
+        carrier = Math.floor(sum/2);
+        result.unshift(sum%2);
+        --n1;
     }
-
-    return ans;
-
+    
+    while(n2 >= 0) {
+        sum = Number(b.charAt(n2)) + carrier;
+        carrier = Math.floor(sum/2);
+        result.unshift(sum%2);
+        --n2;
+    }
+    
+    carrier === 1 && result.unshift(1);
+    
+    return result.join('');
 };
-
-console.log(addBinary('111', '1'));
