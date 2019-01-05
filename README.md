@@ -133,3 +133,11 @@ const getClone = arr => {
   return clone;
 };
 ```
+
+
+7, concat
+concat can be applied to both array and string, and the original array/string would be intact
+```js
+const str = str1.concat(str2);
+const arr = arr1.concat(arr2);
+```
