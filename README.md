@@ -141,3 +141,13 @@ concat can be applied to both array and string, and the original array/string wo
 const str = str1.concat(str2);
 const arr = arr1.concat(arr2);
 ```
+
+
+8, Math.min
+it accepts more than 2 arguments, like
+```js
+Math.min(1, 2, 3) === 1
+
+const array = [1, 2, 3];
+Math.min(...array) === 1
+```
