@@ -31,15 +31,14 @@ const left = {
 
 2a, swap two numbers by bitwise operation
 
-如果互换两个数
-最简单的当然是
+exchange two values by normal way
 ```js
 tmp = a;
 a = b;
 b = tmp;
 ```
 
-如果要效率更高，或者说不借助额外的变量，那么
+exchange without extra variable
 ```js
 a = a ^ b;
 b = a ^ b;
