@@ -150,3 +150,13 @@ Math.min(1, 2, 3) === 1
 const array = [1, 2, 3];
 Math.min(...array) === 1
 ```
+
+
+9, -0
+```js
+0 === -0
+1/0 === Infinity
+1/-0 === -Infinity
+```
+check 073 for more details
+
