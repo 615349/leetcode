@@ -38,7 +38,7 @@ a = b;
 b = tmp;
 ```
 
-exchange without extra variable
+exchange without extra variable（注意这个方法有先决条件，看下面）
 ```js
 a = a ^ b;
 b = a ^ b;
@@ -57,6 +57,16 @@ so
 a = a ^ b ^ a === b
 ```
 
+注意，如果这个方法用来交换数组的两个index，要注意两个index必须不同
+```js
+const swap = (nums, i, j) => {
+	nums[i] = nums[i] ^ nums[j];
+	nums[j] = nums[i] ^ nums[j];
+	nums[i] = nums[i] ^ nums[j];
+}
+```
+考虑nums=[2]，经过这样的交换后变成了[0]
+见075
 
 2b, swap two numbers by destructing
 ```js
