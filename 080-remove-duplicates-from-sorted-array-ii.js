@@ -20,6 +20,8 @@ It doesn't matter what values are set beyond the returned length.
 跟026差不多，但是这题允许有两个重复数字
 因为已经是排序的，所以可以设置一个count，看当前的nums[i]已经出现多少次了
 
+当一个字符出现超过两次，做删除动作，并且回退一格
+
 var removeDuplicates = function(nums) {
     if (!nums || nums.length <= 2) {
         return nums.length;
