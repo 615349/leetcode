@@ -19,51 +19,29 @@
  * }
  */
 
-/**
- * @param {ListNode} head
- * @return {ListNode}
- */
-var deleteDuplicates = function (head) {
+这题就比较简单了，直接用两个指针，一个pre，指向前一个元素
+一个cur，指向当前的元素
 
-    var p = head;
-    if (!p) return p;
-    var all = [p.val];
-    var t = p.next;
+如果pre.val === cur.val，那么pre指向cur的下一个元素
 
-    while (t) {
-
-        if (all.indexOf(t.val) == -1) {
-            all.push(t.val);
-            p = t;
-            t = p.next;
+var deleteDuplicates = function(head) {
+    if (!head || head.next === null) {
+        return head;
+    }
+    
+    let pre = head;
+    let cur = head.next;
+    while(cur) {
+        if (cur.val === pre.val) {
+            pre.next = cur.next;
+            cur = cur.next;
         } else {
-            t = t.next;
-            p.next = t;
+            pre = cur;
+            cur = cur.next;
         }
     }
+    
     return head;
-
 };
-
-/**
- * 改进方案
- *
- * @param {ListNode} head
- * @return {ListNode}
- */
-var deleteDuplicates2 = function (head) {
-
-    var p = head;
-    while (p && p.next) {
-        if (p.val == p.next.val) {
-            p.next = p.next.next;
-        } else {
-            p = p.next;
-        }
-    }
-    return head;
-
-};
-
 
 
