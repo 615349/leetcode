@@ -10,3 +10,7 @@ similar questions:
 
 025 remove duplicates from sorted array
 080 remove duplicates from sorted array II
+
+081 remove duplicates from sorted list
+082 remove duplicates from sorted list II
+
