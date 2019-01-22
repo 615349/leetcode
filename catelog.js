@@ -14,3 +14,5 @@ similar questions:
 081 remove duplicates from sorted list
 082 remove duplicates from sorted list II
 
+084 largest rectangle in histogram
+085 maximal rectangle

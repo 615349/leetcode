@@ -170,3 +170,16 @@ Math.min(...array) === 1
 ```
 check 073 for more details
 
+
+
+10, get row number and column number of a matrix
+```js
+if(!matrix) {
+	return 0;
+}
+const m = matrix.length;
+if(m === 0) return 0;
+
+const n = matrix[0].length;
+if(n === 0) return 0;
+```

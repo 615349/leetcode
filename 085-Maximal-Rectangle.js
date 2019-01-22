@@ -13,73 +13,88 @@
  *
  */
 
-/**
- * @param {character[][]} matrix
- * @return {number}
- */
-var maximalRectangle = function (matrix) {
-    var m = matrix.length;
-    if (!m) return 0;
-    var n = matrix[0].length;
-    if (!n) return 0;
+这题是84题的基础上的follow up
+看上去很难，实际上是很简单的，就是把二维数组转换为84的模式。
+怎么转换呢？
+设立一个height数组，里面有n个元素
+以i行为例，如果matrix[i][j]为0，那么height[j] = 0,
+如果matrix[i][j]是1，那么height[j] = 1 + height[j]，也就是说如果matrix[i-1][j]是1，那么height[j]就是2了
 
-    var dp = [];
-    while (dp.push(new Array(n + 1).fill([0, 0])) <= m) ;
-    var max = 0;
-    for (var i = 1; i <= m; i++) {
-        for (var j = 1; j <= n; j++) {
-            if (matrix[i - 1][j - 1] != 0) {
-                dp[i][j] = [1, 1];
-                var top = dp[i - 1][j];
-                var left = dp[i][j - 1];
-                if (top[0] * top[1] === 0) {
-                    dp[i][j] = [1, left[1] + 1];
-                } else if (left[0] * left[1] === 0) {
-                    dp[i][j] = [top[0] + 1, 1];
-                } else {
-                    var x1 = (top[0] + 1);
-                    var y1 = Math.min(top[1], left[1] + 1);
-                    var p1 = x1 * y1;
+画图一下
+[
+	0	1	0	1
+	1	1	0	0
+]
 
-                    var x2 = Math.min(left[0], top[0] + 1);
-                    var y2 = (left[1] + 1);
-                    var p2 = x2 * y2;
+将第一行看成
+0	1	0	1
+将第二行看成
+1	2	0	0
 
-                    if (p1 >= p2) {
-                        dp[i][j] = [x1, y1];
-                    } else {
-                        dp[i][j] = [x2, y2];
-                    }
+以此类推，这道题就转换为84题了
 
-                }
-
-                max = Math.max(max, dp[i][j][0] * dp[i][j][1]);
-            }
-
-        }
+var largestRectangleArea = function(heights) {
+    if(!heights || heights.length === 0) {
+        return 0;
     }
-
-    // for (var i = 0; i < matrix.length; i++) {
-    //     console.log(matrix[i].split(''));
-    // }
-    // console.log('======================');
-    //
-    // for (var i = 1; i < dp.length; i++) {
-    //     console.log(dp[i].slice(1).join(' | '));
-    // }
-
-    return max;
+    
+    if (heights.length === 1) {
+        return heights[0];
+    }
+    
+    let result = -1;
+    let count = 0;
+    let barHeight = 0;
+    
+    for(let i = 0; i < heights.length; i++) {
+        count = 1;
+        barHeight = heights[i];
+        for(let j = i - 1; j >= 0; j--) {
+            if (heights[j] >= barHeight) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        
+        for(let k = i+1; k< heights.length; k++) {
+            if (heights[k] >= barHeight) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        
+        result = Math.max(result, count*barHeight);
+    }
+    
+    return result;
 };
 
-// console.log(maximalRectangle([
-//     [1, 0, 1, 0, 0],
-//     [1, 0, 1, 1, 1],
-//     [1, 1, 1, 1, 1],
-//     [1, 0, 0, 1, 0],
-// ]));
+var maximalRectangle = function(matrix) {
+    let result = 0;
+    
+    if (!matrix || matrix.length === 0) {
+        return result;
+    }
+    
+    const m = matrix.length;
+    if (m === 0) return result;
+    
+    const n = matrix[0].length;
+    if (n===0) return result;
+    
+    const height = new Array(n).fill(0);
+    
+    for(let i = 0; i < m; i++) {
+        for(let j = 0; j < n; j++) {
+            height[j] = matrix[i][j] === '0' ? 0 : 1 + height[j];
+        }
+        result = Math.max(result, largestRectangleArea(height))
+    }
+    
+    
+    
+    return result;
+};
 
-// console.log(maximalRectangle(
-//     ["10100", "10111", "11111", "10010"]
-// ));
-
-console.log(maximalRectangle(["010", "110", "011", "010"]));
