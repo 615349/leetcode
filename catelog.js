@@ -3,6 +3,12 @@ dfs:
 212 word search II
 
 
+linked list
+086 partition list
+
+
+
+
 
 similar questions:
 033 search in rotated sorted array
