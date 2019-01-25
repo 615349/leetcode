@@ -183,3 +183,14 @@ if(m === 0) return 0;
 const n = matrix[0].length;
 if(n === 0) return 0;
 ```
+
+
+11, access `i`th of string
+```js
+const s = 'welcome';
+s[5]
+or
+s.charAt(5);
+```
+
+
