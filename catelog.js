@@ -4,10 +4,15 @@ dfs:
 078 subsets
 090 subsets II
 
+
+
 linked list
 086 partition list
 
 
+dp:
+070 climb stairs
+091 decode ways
 
 
 
@@ -27,4 +32,9 @@ similar questions:
 
 078 subsets
 090 subsets II
+
+070 climb stairs
+091 decode ways
+
+
 
