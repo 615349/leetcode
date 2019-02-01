@@ -65,7 +65,7 @@ const swap = (nums, i, j) => {
 	nums[i] = nums[i] ^ nums[j];
 }
 ```
-考虑nums=[2]，经过这样的交换后变成了[0]
+考虑nums=[2], i = 0, j = 0，经过这样的交换后nums变成了[0]
 见075
 
 2b, swap two numbers by destructing
