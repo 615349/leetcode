@@ -194,3 +194,14 @@ s.charAt(5);
 ```
 
 
+12, b-tree, binary tree, and binary search tree
+b-tree may have multiple nodes.
+binary tree is one kind of b-tree, but has only two nodes
+BST is one kind of binary tree, it has below features:
+- the left subtree of a node contains only nodes with less key
+- the right subtree of a node contains only nodes with larger key
+- the left and right subtree each must be a BST
+- no duplicated nodes
+
+
+
