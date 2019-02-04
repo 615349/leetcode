@@ -8,7 +8,7 @@ dfs:
 
 linked list
 086 partition list
-
+092 reverse linked list II
 
 dp:
 070 climb stairs
