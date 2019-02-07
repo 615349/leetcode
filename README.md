@@ -205,3 +205,6 @@ BST is one kind of binary tree, it has below features:
 
 
 
+13, binary search tree
+空树也是一种二叉树
+
