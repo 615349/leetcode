@@ -15,36 +15,55 @@
  */
 
 
-/**
- * G(n): the number of unique BST for a sequence of length n.
- * F(i, n), 1 <= i <= n: the number of unique BST, where the number i is the root of BST, and the sequence ranges from 1 to n.
- *
- * G(n) = F(1, n) + F(2, n) + ... + F(n, n).
- * G(0)=1, G(1)=1.
- *
- * F(i, n) = G(i-1) * G(n-i)    1 <= i <= n
- * G(n) = G(0) * G(n-1) + G(1) * G(n-2) + … + G(n-1) * G(0)
- *
- *
- *
- */
+n = 0
 
-/**
- * @param {number} n
- * @return {number}
- */
-var numTrees = function (n) {
-    var dp = [1, 1];
+n = 1
+1
 
-    for (var i = 2; i <= n; i++) {
-        dp[i] = 0;
-        for (var j = 0; j < i; j++) {
-            dp[i] += dp[j] * dp[i - j - 1];
+n = 2
+   1                  2
+     \                /
+      2            1
+
+n = 3
+   1           3    3       2       1
+    \        /     /       / \       \
+     3      2     1       1   3        2
+    /     /        \                    \
+   2     1          2                    3
+
+
+定义f(n)为unique BST的数量，以n = 3为例：
+
+构造的BST的根节点可以取{1, 2, 3}中的任一数字。
+
+如以1为节点，
+则left subtree只能有0个节点, 就是f(0)
+right subtree有2, 3两个节点，那右子树就相当于f(2)。
+所以left/right subtree一共的combination数量为：
+左子树f(0) * 右子树f(2) = 2
+
+以2为节点，
+则left subtree只能为1，那就是f(1)，
+right subtree只能为2：
+所以左子树f(1) * 右子树f(1) = 1
+
+以3为节点，
+则left subtree有1, 2两个节点，就是f(2)，
+right subtree有0个节点：
+所以左子树f(2)*右子树f(0) = 2
+
+所以f(n) = f(0) * f(n-1) + f(1) * f(1) + f(2) * f(0)
+
+var numTrees = function(n) {
+    const dp = new Array(n + 1).fill(0);
+    dp[0] = 1;
+    
+    for(let i = 1; i <= n; i++) {
+        for(let j = 0; j < i; j++) {
+            dp[i] += dp[j] * dp[i-1-j];
         }
     }
-    return dp[n];
+    
+    return dp[n]
 };
-
-console.log(numTrees(1));
-console.log(numTrees(2));
-console.log(numTrees(3));
