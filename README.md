@@ -208,3 +208,15 @@ BST is one kind of binary tree, it has below features:
 13, binary search tree
 空树也是一种二叉树
 
+
+14, MIN and MAX
+```js
+1, bit operation
+MIN = 1 << 31;
+MAX = ~(1 << 31);
+
+2, Number
+Number.MIN_SAFE_INTEGER
+Number.MAX_SAFE_INTEGER
+
+```
