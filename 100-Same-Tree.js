@@ -18,14 +18,18 @@
  * @param {TreeNode} q
  * @return {boolean}
  */
-var isSameTree = function (p, q) {
 
-    if (!p && !q) return true;
-    if (!p || !q) return false;
-    if (p.val !== q.val) return false;
+判断两棵树是否相同，其实很简单。
+如果两个节点都为空，返回true，因为空也是二叉树
+如果两个节点不相同，包括一个节点为空另一个不为空，以及值不想等
+如果两个节点都存在，且值相等，则比较左子树和右子树
 
-    return isSameTree(p.left, q.left) && isSameTree(p.right, q.right);
+const helper = (p, q) => {
+    if (!p && !q) return true
+    if (p && !q || !p && q || p.val !== q.val) return false;
+    return helper(p.left, q.left) && helper(p.right, q.right);
+}
 
+var isSameTree = function(p, q) {
+    return helper(p, q)
 };
-
-
