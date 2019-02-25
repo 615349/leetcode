@@ -30,37 +30,16 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-var isSymmetric = function (root) {
+
+要看是否对称，就做一件事，比较把两个节点的左子树和右子树交叉比较
+
+function helper(p, q) {
+    if (!p && !q) return true;
+    if (p && !q || !p && q || p.val !== q.val) return false;
+    return helper(p.left, q.right) && helper(p.right, q.left);
+}
+
+var isSymmetric = function(root) {
     if (!root) return true;
     return helper(root.left, root.right)
 };
-
-function helper(a, b) {
-    if (!a && !b) return true;
-    if (!a) return false;
-    if (!b) return false;
-    if (a.val !== b.val) return false;
-    return helper(a.left, b.right) && helper(a.right, b.left);
-}
-
-console.log(isSymmetric({
-    val: 1,
-    left: {
-        val: 2,
-        left: {
-            val: 3,
-        },
-        right: {
-            val: 4
-        }
-    },
-    right: {
-        val: 2,
-        left: {
-            val: 4,
-        },
-        right: {
-            val: 3
-        }
-    }
-}))
