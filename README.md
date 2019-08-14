@@ -232,3 +232,9 @@ while Q is non-empty
     mark and enqueue all (unvisited) neighbours of u
 ```
 
+16, product (which means 积)
+facebook interview question, leetcode 238
+the interviewer stated that division is very expensive
+
+
+
