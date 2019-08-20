@@ -232,7 +232,23 @@ while Q is non-empty
     mark and enqueue all (unvisited) neighbours of u
 ```
 
-16, 中英文对照 
+
+16, preorder, inorder, postorder
+简单说，pre 或者in或者post都是对于root节点来说的。
+pre就是先访问root，in是先左子树后root最后右zishu，post是先左子树后右zishu最后root
+
+    3
+   / \
+  9  20
+/  \
+15  7
+
+以上图为例，preorder是3, 9, 15, 7, 20
+inorder是15, 9, 7, 3, 20
+postorder 15, 7, 9, 20, 3
+
+
+200, 中英文对照 
 product (which means 积)
 facebook interview question, leetcode 238
 the interviewer stated that division is very expensive
