@@ -9,7 +9,7 @@ Output: 1->4->3->2->5->NULL
 
 思路其实很简单
 先移动到m-1，然后将m和n之间的reverse
-关于链表的reverse，可以参加
+关于链表的reverse，可以看
 https://www.cnblogs.com/byrhuangqiang/p/4311336.html
 
 pre是m-1点，start是反转之前的第一个点，end是当前要反转的点

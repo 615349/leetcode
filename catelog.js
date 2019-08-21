@@ -19,6 +19,9 @@ dp:
 BFS (breadth first search)
 102 Binary tree level order traversal
 
+BST:
+094 to  111
+
 
 similar questions:
 033 search in rotated sorted array
