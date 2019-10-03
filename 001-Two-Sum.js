@@ -36,6 +36,18 @@ var twoSum = function (numbers, target) {
     }
 };
 
+或者使用map实现
+var twoSum = function(nums, target) {
+    const map = new Map();
+    for(let i = 0; i < nums.length; i++) {
+        if (map.has(target - nums[i])) {
+            return [i, nums.indexOf(target - nums[i])];
+        } else {
+            map.set(nums[i], true);
+        }
+    };
+};
+
 
 另外一种方法是，将数组排序（注意，排序会改变数组本身的，所以需要先保存一下原数组）
 然后用两个指针，一个在头上，一个在尾巴，如果等于就保存两个index，如果小于target，则左边指针向右边移动，反之右边指针向左边移动
