@@ -14,20 +14,19 @@ Given the below binary tree and sum = 22,
  /  \    / \
 7    2  5   1
 Return:
-
 [
    [5,4,11,2],
    [5,8,4,5]
 ]
 
-use dfs to solve it.
-create two arrays, one is temp, one is result.
-in dfs function, first check if the node is null. if not, push the value of this node to temp array.
-if it meets the requirement, push the whole array to result. 
-Please note, need to push the copy of the temp array, because the array element would be changed again.
+使用dfs解决。创建两个数组，一个是当前数组temp，一个是最终的数组result
+在dfs函数里，首先看当前节点是否为空。如果为空，之前返回。
+如果不是空，先把这个节点push到temp数组。
+如果该节点是leaf，且值跟sum相等，则把该temp数组push到result数组
+注意，push的时候需要把temp拷贝一次，因为该数组的元素之后还会变化
 
-and then check the left tree and right tree.
-after that, pop the element as usual
+接着对当前节点的左右子树进行递归。
+最后从temp数组pop出当前节点
 
 var dfs = function(root, sum, temp, result) {
     if (root === null) {
