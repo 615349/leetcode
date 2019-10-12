@@ -17,18 +17,15 @@
  */
 
 跟26题一样
+遍历的时候使用了nums.length，每次删除一个元素后，数组长度也自动更新了
 
 var removeElement = function (nums, val) {
-
-    var len = nums.length;
-    for (var i = 0; i < len; i++) {
+    for (var i = 0; i < nums.length; i++) {
         if (nums[i] === val) {
             nums.splice(i, 1);
             i--;
-            len--;
         }
     }
-    return len;
+    return nums.length;
 };
-
 

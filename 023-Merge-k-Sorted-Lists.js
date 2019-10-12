@@ -5,14 +5,11 @@
  * Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
  */
 
-这是我见过最好的答案，使用reduce来遍历
+这是我见过最好的答案，使用reduce来遍历, 然后退化为merge2Lists
 
-
-//Definition for singly-linked list.
-function ListNode(val) {
-    this.val = val;
-    this.next = null;
-}
+/* js array reduce */
+array.reduce(callback(accumulator, currentValue)[, initValue]);
+对应于下面的情况，a就是accumulator，b是currentValue, null是initValue
 
 /**
  * @param {ListNode[]} lists
@@ -50,37 +47,4 @@ function merge2lists(a, b) {
     if (a) t.next = a;
     if (b) t.next = b;
     return h;
-
 }
-
-var a = {
-    val: 1,
-    next: {
-        val: 4,
-        next: {
-            val: 7,
-            next: null
-        }
-    }
-}
-var b = {
-    val: 2,
-    next: {
-        val: 8,
-        next: {
-            val: 9,
-            next: null
-        }
-    }
-}
-
-var c = {
-    val: 3,
-    next: {
-        val: 10,
-        next: null
-    }
-}
-
-// console.log(merge2lists(a, b));
-console.log(mergeKLists([a, b, c]))

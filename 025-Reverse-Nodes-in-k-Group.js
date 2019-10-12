@@ -13,13 +13,9 @@
  *
  */
 
-// Definition for singly-linked list.
-function ListNode(val) {
-    this.val = val;
-    this.next = null;
-}
-
 翻转多个节点。
+首先建立一个dummy节点放在header之前
+
 if k is 3,
 dummy -> 1 -> 2 -> 3 -> 4
   |                     |
@@ -44,13 +40,13 @@ pre     last     cur       next
 
 
 
-          _____________
-         |             |
+          _______________
+         |               |
 dummy -> 1 -x->  2 -x->  3 -> 4 -> 5
- | |   |  |                    |
-pre|   | last                 next
-   |   |
-   |_2_|
+ | |     |       |            |
+pre|    last     |          next
+   |             |
+   |_____________|
 
 
 dummy -> 2 ->  1 ->  3 -> 4 -> 5
@@ -110,6 +106,4 @@ var reverseKGroup = function(head, k) {
 
   return dummy.next;
 };
-
-
 
