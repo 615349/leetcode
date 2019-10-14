@@ -257,6 +257,9 @@ the interviewer stated that division is very expensive
 even: 偶数
 odd: 奇数
 
-
+dividend: 被除数
+divisor: 除数
+quotient: 商
+被除数 / 除数 = 商
 
 
