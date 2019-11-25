@@ -49,17 +49,17 @@
 使用的方法挺简单的，用递归函数。首先得到n - 1的结果，然后开始从头开始数
 使用一个指针，以下面的例子，一开始指向0，然后用currentValue一位一位开始比较
       
-11121
-^
-|
+    11121
+    ^
+    |
 currentValue
       
 
 然后指向下一个不同的数
 
-11121
-   ^
-   |
+    11121
+       ^
+       |
    currentValue
       
       
@@ -80,7 +80,8 @@ var countAndSay = function(n) {
             count = 1;
         }
     }
-    
+   
+    //consider 22221 or 22222 
     if (count > 0) {
         result += '' + count + currentValue;
     }
