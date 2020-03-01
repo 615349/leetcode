@@ -38,7 +38,10 @@ a = b;
 b = tmp;
 ```
 
-exchange without extra variable（注意这个方法有先决条件，看下面）
+exchange without extra variable
+注意，这个方法有两个限制条件
+首先只适用于交换数字的情况
+其次，i和j不能相等
 ```js
 a = a ^ b;
 b = a ^ b;
