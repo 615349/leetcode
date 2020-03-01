@@ -10,7 +10,7 @@ examples:
 * N is an integer winthin range [0..200,000]
 * S consists only of 'a' and/or 'b'
 
-iconst getMoves = (S) => {
+const getMoves = (S) => {
   let numberOfMoves = 0;
   const { length } = S;
   if (length < 3) {
