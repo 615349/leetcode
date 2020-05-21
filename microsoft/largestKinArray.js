@@ -32,3 +32,18 @@ const largest = (array) => {
   return 0;
 }
 
+
+const largest = (arr) => {
+  const map = {};
+  let max = 0;
+  for(const item of array) {
+    if (map[-item]) {
+      max = Math.max(max, Math.abs(item));
+    } else {
+      map[item] = true;
+    }
+  }
+  
+  return max;
+}
+
