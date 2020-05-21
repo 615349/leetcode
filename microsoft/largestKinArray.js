@@ -33,7 +33,7 @@ const largest = (array) => {
 }
 
 
-const largest = (arr) => {
+const largest = (array) => {
   const map = {};
   let max = 0;
   for(const item of array) {
