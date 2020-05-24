@@ -36,3 +36,35 @@ Examples
 
 所以这题的关键是，对于任意红球a，要计算出a和基准红球之间还有多少个球。
 做法很简单，我把所有的红球放入一个数组，在新数组中的index1 - index2 - 1就是有多少红球在两者之间
+
+
+
+const solution = (S) => {
+  const redBalls = [];
+  for(let i = 0; i < S.length; i++) {
+    if (S.charAt(i) === 'R') {
+      redBalls.push(i);
+    }
+  }
+  
+  const { length } = redBalls;
+  if (length < 2) {
+    return 0;
+  }
+  
+  const LIMIT = Math.pow(10, 9);
+  const newMiddleIndex = Math.floor((length - 1) / 2);
+  const oldMiddleIndex = redBalls[newMiddleIndex];
+  let counter = 0;
+  for(let i = 0; i < length; i++) {
+    counter += Math.abs(oldMiddleIndex - 1 - redBalls[i]) - Math.abs(newMiddleIndex - 1 - i);
+    // both need to minus 1, so it can be
+    // counter += Math.abs(oldMiddleIndex - redBalls[i]) - Math.abs(newMiddleIndex - i);
+        
+    if (counter > LIMIT) {
+      return counter
+    }
+  }
+  
+  return counter;
+}
