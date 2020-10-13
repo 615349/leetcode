@@ -37,3 +37,28 @@ var maxSubArray = function(nums) {
     }
     return max;
 };
+
+
+// 13/10/2020 更新
+https://www.youtube.com/watch?v=7J5rs56JBs8
+如果使用dp的话，可以这样考虑
+建立一个dp[i]，其代表的意思是数组的index从某个值，到i的最大的sum
+那么dp[i+1]的求法就是 if dp[i] > 0, dp[i+1] = dp[i] + arr[i+1]. if dp[i] < 0, 那我肯定舍弃之前的结果dp[i+1] = arr[i+1]
+
+var maxSubArray = function(nums) {
+    const f = new Array(nums.length).fill(0);
+    
+    f[0] = nums[0];
+    let max = f[0];
+    for(let i = 1; i < nums.length; i++) {
+        if (f[i-1] > 0) {
+            f[i] = f[i-1] + nums[i];
+        } else {
+            f[i] = nums[i]
+        }
+        
+        max = Math.max(max, f[i]);
+    }
+    
+    return max;
+};
