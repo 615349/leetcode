@@ -36,6 +36,41 @@ const getLongestLength = (s) => {
   return maxLen;
 };
 
-const m = getLongestLength("abcda");
-console.log('m:', m)
+13/10/2020 更新
+使用dp
+这样考虑。dp[i]表示字符串从某个位置开始到i为止，最大的sub string
+s:   a    b    c    a    b   c    b    b
+dp:  a    ab  abc   bca  cab abc  cb   b
+
+也就是说，计算dp[i]的时候，如果dp[i-1]不包含s[i]，那么dp[i] = dp[i-1] + s[i]
+如果dp[i-1]包含s[i]，那么在dp[i-1]找到s[i]的位置，然后取其slice(index + 1)，再加上s[i]
+举个例子，dp[i-1] = 'abcd'， s[i] = 'b'，那么dp[i] 应该是'cdb'，其计算过程应该是
+index = dp[i-1].indexOf(s[i])
+dp[i] = dp[i-1].slice(index + 1) + s[i]
+
+var lengthOfLongestSubstring = function(s) {
+    const { length } = s;
+    
+    if (length <= 1) {
+        return s.length;
+    }
+    
+    const dp = new Array(length).fill('')
+    
+    dp[0] = s.charAt(0);
+    let max = 1;
+    
+    for(let i = 1; i < length; i++) {
+        const index = dp[i-1].indexOf(s[i])
+        if (index === -1) {
+            dp[i] = dp[i-1] + s[i];
+        } else {
+            dp[i] = dp[i-1].slice(index + 1) + s[i]
+        }
+        
+        max = Math.max(max, dp[i].length);
+    }
+        
+    return max;
+};
 
