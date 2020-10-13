@@ -45,6 +45,9 @@ https://www.youtube.com/watch?v=7J5rs56JBs8
 建立一个dp[i]，其代表的意思是数组的index从某个值，到i的最大的sum
 那么dp[i+1]的求法就是 if dp[i] > 0, dp[i+1] = dp[i] + arr[i+1]. if dp[i] < 0, 那我肯定舍弃之前的结果dp[i+1] = arr[i+1]
 
+arr [-2, 1, -3, 4, -1, 2, 1, -5, 4]
+dp   -2, 1, -2, 4,  3, 5, 6,  1, 5
+
 var maxSubArray = function(nums) {
     const f = new Array(nums.length).fill(0);
     
