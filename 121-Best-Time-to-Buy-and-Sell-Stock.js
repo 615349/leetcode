@@ -17,22 +17,32 @@
  * In this case, no transaction is done, i.e. max profit = 0.
  */
 
-/**
- * @param {number[]} prices
- * @return {number}
- */
-var maxProfit = function (prices) {
-    if (!prices.length) return 0;
-    var min = prices[0];
-    var max = 0;
-    for (var i = 1; i < prices.length; i++) {
-        var tmp = prices[i];
-        if (tmp < min) min = tmp;
-        else if (tmp - min > max) max = tmp - min;
-    }
-    return max;
+https://github.com/615349/leetcode/blob/master/053-Maximum-Subarray.js
+跟053基本相似
+考虑使用dp的方法。
+要得到最大的profit，就是arr[i]-之前最小的一个数
+arr [7, 1, 5, 3, 6, 4]
+dp   7, 1, 1, 1, 1, 1
+max  0  0  4  2  5  3
+所以只要额外设置一个max值，来比较prices[i] - dp[i]的最大值
 
+dp[i]表示数组到index为i为止的最小的数，最大的profit就是prices[i] - dp[i]
+
+因为题目要求最少也要返回0，所以设置max=0
+
+
+
+var maxProfit = function(prices) {
+    const dp = new Array(prices.length).fill(0);
+    
+    dp[0] = prices[0];
+    let max = 0;
+    for(let i = 1; i < prices.length; i++) {
+        dp[i] = Math.min(dp[i-1], prices[i]);
+        max = Math.max(prices[i] - dp[i], max);
+    }
+    
+    return max;
 };
 
-console.log(maxProfit([7, 1, 5, 3, 6, 4]));
-console.log(maxProfit([7, 6, 4, 3, 1]));
+
