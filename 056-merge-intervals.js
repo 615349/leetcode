@@ -87,3 +87,28 @@ var merge = function(intervals) {
     return result;
 };
 
+
+
+14/10/2020 更新
+首先第一步，进行排序，按照每个小数组的第一个元素进行排序
+
+[[1,3],[2,6],[8,10],[15,18]]
+对于这样的情况，只要把array[i][1]和arr[i+1][0]相比较，如果前者>=后者的话，两个就可以合并。
+那么合并后的arr[i]的第一个数字是arr[i][0]，第二个数字是arr[i][1]和arr[i+1][1]的较大值。(考虑[1, 4]和[2,3]，所以不一定是arr[i+1][1])
+
+所以arr[i]和arr[i+1]合并后，更新arr[i]，并删除arr[i+1]。执行删除后，i需要--
+
+var merge = function(intervals) {
+    intervals.sort((a, b) => a[0] - b[0]);
+    
+    
+    for(let i = 0; i < intervals.length; i++) {
+        if (intervals[i+1] && intervals[i][1] >= intervals[i+1][0]) {
+            intervals[i][1] = Math.max(intervals[i+1][1], intervals[i][1]);
+            intervals.splice(i+1, 1);
+            --i;
+        }
+    }
+    
+    return intervals;
+};
