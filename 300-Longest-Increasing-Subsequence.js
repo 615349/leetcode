@@ -14,24 +14,30 @@
  * @param {number[]} nums
  * @return {number}
  */
-var lengthOfLIS = function (nums) {
 
-    var dp = [];
-    for (var i = 0; i < nums.length; i++) {
-        dp[i] = 1;
+这里求的不是连续的，是可以断开的。对于dp而言，dp[i]表示index到i为止的最长递增子字符串（LIS）
+如何求dp[i]呢，是0到i-1范围内最大的lis + 1
+所以先对数组进行0 ～ n-1的循环，然后在循环内，对于0到i-1循环，只要nums[i] > nums[j], 那么dp[i] = dp[j] + 1。但是不同的dp[j]的大小是不一样的，所以需要求最大值
 
-        var max = 0;
-        for (var j = 0; j < i; j++) {
-            if (nums[j] < nums[i]) {
-                if (dp[j] > max) {
-                    max = dp[j]
-                }
+最后得到了dp[i]
+
+最后的答案就是dp数组里的最大值
+
+var lengthOfLIS = function(nums) {
+    const { length } = nums;
+    if (length < 2) {
+        return length;
+    }
+    
+    let max = 1;
+    const dp = new Array(length).fill(1);
+    for(let i = 1; i < length; i++) {
+        for(let j = 0; j < i; j++) {
+            if (nums[i] > nums[j]) {
+                dp[i] = Math.max(dp[i], dp[j] + 1);
+                max = Math.max(dp[i], max);
             }
         }
-        dp[i] = max + 1;
     }
-
-    return Math.max(...dp);
+    return max;
 };
-
-console.log(lengthOfLIS([23, 2, 4, 5, 6]));
