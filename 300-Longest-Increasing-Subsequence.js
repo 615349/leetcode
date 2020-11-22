@@ -23,6 +23,8 @@
 
 最后的答案就是dp数组里的最大值
 
+https://www.youtube.com/watch?v=7DKFpWnaxLI
+
 var lengthOfLIS = function(nums) {
     const { length } = nums;
     if (length < 2) {
