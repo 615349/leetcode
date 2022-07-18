@@ -15,9 +15,12 @@ return its level order traversal as:
 ]
 
 思路是
-首先设一个数组queue，用来保存要访问的节点，注意是节点，不是value，因为要访问node.left, node.right。也就是说对每个节点查看左右子树，只要存在，就放入queue，实际上就是bfs
+首先设一个数组queue，用来保存要访问的节点，注意是节点，不是value，因为要访问node.left, node.right。
+也就是说对每个节点查看左右子树，只要存在，就放入queue，实际上就是bfs
+
 再设置一个result数组，再设置一个temp数组，temp数组是用来存每一层的每个节点的指
-另外还要知道每一层是否访问完毕了，因此需要设置counter，并且需要知道下一层的counter。因为第一层就一个节点，但之后的层的节点数是未知的。所以每次node.left或者node.right存在，就把下一层的counter++
+另外还要知道每一层是否访问完毕了，因此需要设置counter，并且需要知道下一层的counter。
+因为第一层就一个节点，但之后的层的节点数是未知的。所以每次node.left或者node.right存在，就把下一层的counter++
 
 var levelOrder = function(root) {
     const result = [];
