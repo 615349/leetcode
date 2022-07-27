@@ -54,39 +54,40 @@ n <--> len - 1 - n
 
 如果所有的数字都是递减的，那么直接做一个reverse
 
-
-
 var nextPermutation = function (nums) {
 
     if (nums.length < 2) return;
-    var peak = nums.length - 1;
-    for (var i = peak - 1; nums[i] >= nums[peak]; peak = i--);
+    let peak = nums.length - 1;
+    // 从右到左的递增的最左边的数的index，也是8的index 3
+    for (let i = peak - 1; nums[i] >= nums[peak]; peak = i--);
 
+    // 如果peak是0，说明整个数组从右到左都是递增的，首尾互换
+    // 如果peak不是0，说明peak-1是小于peak，peak-1与peak到length-1之间大于peak-1中最小的那个互换
     if (peak !== 0) {
-        var swapIndex = findSwap(nums, peak, nums.length - 1, peak - 1);
-        if (swapIndex !== -1) {
-            swap(nums, peak - 1, swapIndex);
-        }
+        // 找到peak到length-1之间大于peak-1中最小的数
+        const swapIndex = findSwap(nums, peak, nums.length - 1, peak - 1);
+        swap(nums, peak - 1, swapIndex);
     }
 
     reverse(nums, peak, nums.length - 1);
 
 };
 
-function findSwap(nums, s, e, target) {
-    for (var i = e; i >= s; i--) {
+function findSwap(nums, startIndex, endIndex, target) {
+    for (let i = endIndex; i >= startIndex; i--) {
         if (nums[i] > nums[target]) return i;
     }
-    return -1;
 }
 
-function swap(nums, s, e) {    
-    nums[s] = nums[s] ^ nums[e];
-    nums[e] = nums[s] ^ nums[e];
-    nums[s] = nums[s] ^ nums[e];
+function swap(nums, startIndex, endIndex) {    
+    nums[startIndex] = nums[startIndex] ^ nums[endIndex];
+    nums[endIndex] = nums[startIndex] ^ nums[endIndex];
+    nums[startIndex] = nums[startIndex] ^ nums[endIndex];
 }
-function reverse(nums, s, e) {
-    for (var i = 0; i < Math.ceil((e - s ) / 2); i++) {
-        swap(nums, s + i, e - i);
+function reverse(nums, startIndex, endIndex) {
+    while(startIndex < endIndex) {
+        swap(nums, startIndex, endIndex);
+        startIndex++;
+        endIndex--;
     }
 }
