@@ -24,30 +24,36 @@
 （2）如果A[m]<A[r]，那么说明从m到r一定是有序的（没有受到rotate的影响），那么我们只需要判断target是不是在m到r之间，如果是则把左边缘移到m+1，否则就target在另一半，即把右边缘移到m-1。
 （3）如果A[m]>=A[l]，那么说明从l到m一定是有序的，同样只需要判断target是否在这个范围内，相应的移动边缘即可。
 
-public int search(int[] A, int target) {
-    if(A==null || A.length==0)
+var search = function(nums, target) {
+    const { length } = nums;
+    
+    if (length === 0) {
         return -1;
-    int l = 0;
-    int r = A.length-1;
-    while(l<=r)
-    {
-        int m = (l+r)/2;
-        if(target == A[m])
+    }
+    
+    let l = 0;
+    let r = length - 1;
+    let m;
+    
+    while(l <= r) {
+        m = Math.floor((l + r) / 2)
+        if (nums[m] === target) {
             return m;
-        if(A[m]<A[r])
-        {
-            if(target>A[m] && target<=A[r])
-                l = m+1;
-            else
-                r = m-1;
         }
-        else
-        {
-            if(target>=A[l] && target<A[m])
+        if (nums[m] < nums[r]) {
+            if (target > nums[m] && target <= nums[r]) {
+                l = m+1;
+            } else {
                 r = m-1;
-            else
-                l = m+1;                    
+            }
+        } else {
+            if (target >= nums[l] && target < nums[m]) {
+                r = m-1;
+            } else {
+                l = m+1
+            }
         }
     }
+    
     return -1;
-}
+};
