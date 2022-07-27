@@ -25,3 +25,32 @@ var isPalindrome = function (x) {
     }
     return t === p;
 };
+
+另外一个方法是将数字转换为字符串，使用两个指针从两边移动
+
+var isPalindrome = function(x) {
+    if (x < 0) {
+        return false;
+    }
+    if (x === 0) {
+        return true;
+    }
+    
+    const strX = x.toString();
+    const { length } = strX;
+    
+    let left = 0;
+    let right = length - 1;
+    
+    let result = true;
+    while (left < right) {
+        if (strX[left] !== strX[right]) {
+            result = false;
+            break;
+        }
+        ++left;
+        --right;
+    }
+    
+    return result;
+};
