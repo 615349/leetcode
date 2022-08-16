@@ -11,6 +11,10 @@ Examples:
 
 3, Given S = 'abaaaa', your function should return 4, which is the length of 'abaa'
 
+本题不能应用dfs，以第一个例子来说，baaa的时候，就应该停止了
+下面例子应该用dfs，因为可以第一个item和第三个item结合
+https://github.com/615349/leetcode/blob/master/microsoft/concatenatedStringLengthWithUniqueCharacters.js
+
 const getSubstringLength = (S) => {
   const { length } = S;
   
